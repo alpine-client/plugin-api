@@ -118,6 +118,7 @@ tasks.withType<Javadoc> {
 //        this as StandardJavadocDocletOptions
 //        stylesheetFile = File(projectDir, "/dracula-stylesheet.css")
 //    }
+    setDestinationDir(File(projectDir, "/docs/"))
     include(project.group.toString().replace(".", "/") + "/api/**/*.java")
 }
 
