@@ -1,0 +1,4 @@
+main: com.alpineclient.plugin.Plugin
+name: ${pluginName}
+version: ${pluginVersion}
+api-version: 1.13
