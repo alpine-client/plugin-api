@@ -106,8 +106,8 @@ publishing {
             name = "alpine-cloud"
             url = uri("https://lib.alpn.cloud/alpine-public")
             credentials {
-                username = System.getenv("MAVEN_NAME")
-                password = System.getenv("MAVEN_SECRET")
+                username = System.getenv("ALPINE_MAVEN_NAME")
+                password = System.getenv("ALPINE_MAVEN_SECRET")
             }
         }
     }
