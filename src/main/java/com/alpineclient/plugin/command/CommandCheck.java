@@ -18,7 +18,7 @@ import org.bukkit.command.CommandSender;
 @Description("Check whether a player is using Alpine Client")
 @CommandPermission("alpineapi.check")
 public final class CommandCheck extends Command {
-    @Default
+    @Default @Syntax("<player>")
     public void execute(CommandSender sender, OnlinePlayer target) {
         AlpinePlayer alpinePlayer = Plugin.getInstance().getPlayerHandler().getConnectedPlayer(target.getPlayer());
         boolean connected = alpinePlayer != null;
