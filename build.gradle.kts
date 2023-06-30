@@ -122,10 +122,10 @@ publishing {
 }
 
 tasks.withType<Javadoc> {
-//    options {
-//        this as StandardJavadocDocletOptions
-//        stylesheetFile = File(projectDir, "/dracula-stylesheet.css")
-//    }
+    options {
+        this as StandardJavadocDocletOptions
+        stylesheetFile = File(projectDir, "/dracula-stylesheet.css")
+    }
     setDestinationDir(File(projectDir, "/docs/"))
     include(project.group.toString().replace(".", "/") + "/api/**/*.java")
 }
