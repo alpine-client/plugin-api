@@ -19,8 +19,6 @@ import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @author Thomas Wearmouth
