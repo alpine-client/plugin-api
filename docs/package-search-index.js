@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.alpineclient.plugin.api"},{"l":"com.alpineclient.plugin.api.event"},{"l":"com.alpineclient.plugin.api.objects"},{"l":"com.alpineclient.plugin.api.util"}];updateSearchResults();
