@@ -1,5 +1,5 @@
 # Alpine Client API
-> Current version: 1.0.0
+> Current version: 1.1.0
 
 ### For Server Admins
 This plugin does the following by default:
@@ -9,6 +9,8 @@ This plugin does the following by default:
 - `/accheck [player]` - Displays whether the given player is on Alpine Client. If they are, also displays their Minecraft version and mod platform. Requires the `alpineapi.check` permission.
 - `/acnotify [player] [content]` - Sends a notification to the given player containing the given content.  Requires the `alpineapi.notify` permission.
 - `/aclist` - Displays a list of all online Alpine Client users. Requires the `alpineapi.list` permission.
+
+The plugin has been explicitly verified to work on server versions `1.8.8` and `1.19.4`, however all versions in between and above should work.
 
 Much more is possible with this API, however it would require your development team to implement it with your plugins manually. This is what is available by default with no extra development work.
 
@@ -33,7 +35,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.alpineclient:api-plugin:1.0.0'
+    implementation 'com.alpineclient:api-plugin:1.1.0'
 }
 ```
 
