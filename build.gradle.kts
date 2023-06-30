@@ -18,25 +18,27 @@ val properties = mapOf(
 
 repositories {
     mavenCentral()
-    maven("https://repo.papermc.io/repository/maven-public/")
-    maven("https://repo.codemc.org/repository/nms/")
+    maven("https://oss.sonatype.org/content/repositories/snapshots")
+    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+    maven("https://lib.alpn.cloud/alpine-public/")
     maven("https://repo.aikar.co/content/groups/aikar/")
-    maven("https://jitpack.io/")
 }
 
 dependencies {
-    compileOnly("org.spigotmc:spigot:${project.properties["spigot_version"]}")
-    compileOnly("io.papermc.paper:paper-api:${project.properties["spigot_version"]}")
+    compileOnly("io.netty:netty-all:4.0.23.Final")
+    compileOnly("org.apache.logging.log4j:log4j-core:2.0-beta9")
+    compileOnly("org.spigotmc:spigot-api:${project.properties["spigot_version"]}")
 
     shade(this, "org.jetbrains:annotations:24.0.1")
     shade(this, "co.aikar:acf-paper:0.5.1-SNAPSHOT")
-    shade(this, "com.github.Exlll.ConfigLib:configlib-paper:v4.2.0")
+    shade(this, "de.exlll:configlib-spigot:4.2.0")
     shade(this, "org.reflections:reflections:0.10.2")
 
+    shade(this, "net.kyori:adventure-platform-bukkit:4.3.0")
     val adventureVer = "4.14.0"
     shade(this, "net.kyori:adventure-api:${adventureVer}")
     shade(this, "net.kyori:adventure-text-minimessage:${adventureVer}")
-    shade(this, "net.kyori:adventure-text-serializer-gson:${adventureVer}")
+    shade(this, "net.kyori:adventure-text-serializer-legacy:${adventureVer}")
 
     val lombok = "org.projectlombok:lombok:1.18.28"
     compileOnly(lombok)
@@ -52,12 +54,16 @@ blossom {
 tasks.withType<Jar> {
     // Rename jar
     archiveFileName.set("${project.properties["plugin_name"]}-$version.jar")
+
+    // Add exclusions
+    exclude("META-INF/versions/")
+    exclude("META-INF/maven/")
+    exclude("javassist/**/*.html")
 }
 
 tasks.withType<ShadowJar> {
     dependsOn("jar")
     outputs.upToDateWhen { false }
-
 
     // Relocate dependencies
     val root = "com.alpineclient.dependencies"
@@ -79,7 +85,9 @@ tasks.withType<JavaCompile> {
 
 tasks.processResources {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
+
     inputs.properties(properties)
+
     filesMatching("plugin.yml") {
         expand(properties)
     }
@@ -106,18 +114,18 @@ publishing {
             name = "alpine-cloud"
             url = uri("https://lib.alpn.cloud/alpine-public")
             credentials {
-                username = System.getenv("MAVEN_NAME")
-                password = System.getenv("MAVEN_SECRET")
+                username = System.getenv("ALPINE_MAVEN_NAME")
+                password = System.getenv("ALPINE_MAVEN_SECRET")
             }
         }
     }
 }
 
 tasks.withType<Javadoc> {
-//    options {
-//        this as StandardJavadocDocletOptions
-//        stylesheetFile = File(projectDir, "/dracula-stylesheet.css")
-//    }
+    options {
+        this as StandardJavadocDocletOptions
+        stylesheetFile = File(projectDir, "/dracula-stylesheet.css")
+    }
     setDestinationDir(File(projectDir, "/docs/"))
     include(project.group.toString().replace(".", "/") + "/api/**/*.java")
 }

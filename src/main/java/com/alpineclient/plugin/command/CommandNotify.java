@@ -1,9 +1,6 @@
 package com.alpineclient.plugin.command;
 
-import co.aikar.commands.annotation.CommandAlias;
-import co.aikar.commands.annotation.CommandPermission;
-import co.aikar.commands.annotation.Default;
-import co.aikar.commands.annotation.Description;
+import co.aikar.commands.annotation.*;
 import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import com.alpineclient.plugin.Plugin;
 import com.alpineclient.plugin.api.objects.AlpinePlayer;
@@ -19,7 +16,7 @@ import org.bukkit.command.CommandSender;
 @Description("Send a notification to a player on Alpine Client")
 @CommandPermission("alpineapi.notify")
 public final class CommandNotify extends Command {
-    @Default
+    @Default @Syntax("<player>")
     public void execute(CommandSender sender, OnlinePlayer target, String content) {
         AlpinePlayer alpinePlayer = Plugin.getInstance().getPlayerHandler().getConnectedPlayer(target.getPlayer());
         if (alpinePlayer != null) {

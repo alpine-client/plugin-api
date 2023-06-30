@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.JoinConfiguration;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,6 +23,9 @@ import java.util.Collection;
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Configuration
 public final class ConfigMessage {
+    private static final LegacyComponentSerializer LEGACY_SERIALIZER = LegacyComponentSerializer.builder()
+            .character(LegacyComponentSerializer.SECTION_CHAR)
+            .build();
 
     private static MessageConfig config;
 
@@ -50,7 +54,7 @@ public final class ConfigMessage {
     }
 
     public void send(@NotNull CommandSender sender, @NotNull Object... placeholders) {
-        sender.sendMessage(this.build(placeholders));
+        Reference.AUDIENCES.sender(sender).sendMessage(this.build(placeholders));
     }
 
     public void send(@NotNull Collection<CommandSender> senders, @NotNull Object... placeholders) {

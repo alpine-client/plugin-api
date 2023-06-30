@@ -28,6 +28,9 @@ import java.util.Set;
 public final class Plugin extends JavaPlugin {
     @Getter
     private static Plugin instance;
+    {
+        instance = this;
+    }
 
     @Getter
     private ConfigManager configManager;
@@ -41,11 +44,8 @@ public final class Plugin extends JavaPlugin {
     @Getter
     private NetHandlerPlugin netHandler;
 
-
     @Override
     public void onEnable() {
-        instance = this;
-
         this.configManager = new ConfigManager();
         this.commandManager = new PaperCommandManager(this);
         this.playerHandler = new PlayerHandler();

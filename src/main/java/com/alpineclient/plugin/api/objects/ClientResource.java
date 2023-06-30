@@ -2,7 +2,6 @@ package com.alpineclient.plugin.api.objects;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.apache.commons.lang3.NotImplementedException;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -37,7 +36,7 @@ public final class ClientResource {
      */
     @NotNull
     public static ClientResource external(@NotNull String value) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
         // return new ClientResource(Type.EXTERNAL, value);
     }
 
