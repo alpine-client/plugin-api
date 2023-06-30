@@ -1,9 +1,6 @@
 package com.alpineclient.plugin.command;
 
-import co.aikar.commands.annotation.CommandAlias;
-import co.aikar.commands.annotation.CommandPermission;
-import co.aikar.commands.annotation.Default;
-import co.aikar.commands.annotation.Description;
+import co.aikar.commands.annotation.*;
 import co.aikar.commands.bukkit.contexts.OnlinePlayer;
 import com.alpineclient.plugin.Plugin;
 import com.alpineclient.plugin.api.objects.AlpinePlayer;

@@ -34,7 +34,7 @@ public final class PacketNotificationAdd extends Packet {
         out.writeInt(this.notification.getColor());
         out.writeInt((int) this.notification.getDuration());
 
-        var texture = this.notification.getTexture();
+        ClientResource texture = this.notification.getTexture();
         if (texture == null) {
             out.writeBool(false);
         }

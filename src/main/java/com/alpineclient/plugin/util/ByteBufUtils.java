@@ -1,8 +1,8 @@
 package com.alpineclient.plugin.util;
 
 import com.google.common.base.Charsets;
+import com.google.common.base.Preconditions;
 import io.netty.buffer.ByteBuf;
-import org.apache.commons.lang3.Validate;
 
 /**
  * @author Thomas Wearmouth
@@ -30,7 +30,7 @@ public final class ByteBufUtils {
      * @return The integer
      */
     public static int readVarInt(ByteBuf buf, int maxSize) {
-        Validate.isTrue(maxSize < 6 && maxSize > 0, "Varint length is between 1 and 5, not %d", maxSize);
+        Preconditions.checkArgument(maxSize < 6 && maxSize > 0, "Varint length is between 1 and 5, not %d", maxSize);
         int i = 0;
         int j = 0;
         byte b0;
@@ -57,7 +57,7 @@ public final class ByteBufUtils {
      * @param maxSize The maximum number of bytes to use
      */
     public static void writeVarInt(ByteBuf to, int toWrite, int maxSize) {
-        Validate.isTrue(varIntByteCount(toWrite) <= maxSize, "Integer is too big for %d bytes", maxSize);
+        Preconditions.checkArgument(varIntByteCount(toWrite) <= maxSize, "Integer is too big for %d bytes", maxSize);
         while ((toWrite & -128) != 0) {
             to.writeByte(toWrite & 127 | 128);
             toWrite >>>= 7;
@@ -87,7 +87,7 @@ public final class ByteBufUtils {
      */
     public static void writeUTF8String(ByteBuf to, String string) {
         byte[] utf8Bytes = string.getBytes(Charsets.UTF_8);
-        Validate.isTrue(varIntByteCount(utf8Bytes.length) < 3, "The string is too long for this encoding.");
+        Preconditions.checkArgument(varIntByteCount(utf8Bytes.length) < 3, "The string is too long for this encoding.");
         writeVarInt(to, utf8Bytes.length, 2);
         to.writeBytes(utf8Bytes);
     }
