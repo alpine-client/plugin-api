@@ -1,5 +1,5 @@
 # Alpine Client API
-> Current version: 1.1.0
+> Current version: 1.1.1
 
 ### For Server Admins
 This plugin does the following by default:
@@ -35,7 +35,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.alpineclient:api-plugin:1.1.0'
+    implementation 'com.alpineclient:api-plugin:1.1.1'
 }
 ```
 
