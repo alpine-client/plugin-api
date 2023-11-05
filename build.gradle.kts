@@ -32,7 +32,6 @@ dependencies {
     shade(this, "org.jetbrains:annotations:24.0.1")
     shade(this, "co.aikar:acf-paper:0.5.1-SNAPSHOT")
     shade(this, "de.exlll:configlib-spigot:4.2.0")
-    shade(this, "org.reflections:reflections:0.10.2")
 
     shade(this, "net.kyori:adventure-platform-bukkit:4.3.0")
     val adventureVer = "4.14.0"
@@ -40,7 +39,7 @@ dependencies {
     shade(this, "net.kyori:adventure-text-minimessage:${adventureVer}")
     shade(this, "net.kyori:adventure-text-serializer-legacy:${adventureVer}")
 
-    val lombok = "org.projectlombok:lombok:1.18.28"
+    val lombok = "org.projectlombok:lombok:1.18.30"
     compileOnly(lombok)
     annotationProcessor(lombok)
 }
