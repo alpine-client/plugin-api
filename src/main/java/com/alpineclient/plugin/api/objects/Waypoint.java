@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -115,6 +116,18 @@ public final class Waypoint {
         @NotNull
         public Builder world(@NotNull String world) {
             this.world = world;
+            return this;
+        }
+
+        /**
+         * Sets the world name to be built into the {@link Waypoint}
+         *
+         * @param worldObj The world object
+         * @return The builder
+         */
+        @NotNull
+        public Builder world(@NotNull World worldObj) {
+            this.world = worldObj.getName();
             return this;
         }
 
