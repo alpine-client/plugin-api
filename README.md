@@ -10,7 +10,7 @@ This plugin does the following by default:
 - `/acnotify [player] [content]` - Sends a notification to the given player containing the given content.  Requires the `alpineapi.notify` permission.
 - `/aclist` - Displays a list of all online Alpine Client users. Requires the `alpineapi.list` permission.
 
-The plugin has been explicitly verified to work on server versions `1.8.8` and `1.19.4`, however all versions in between and above should work.
+The plugin has been explicitly verified to work on server versions `1.8.8`, `1.19.4` and `1.20.1`, however all versions in between and above *should* work.
 
 Much more is possible with this API, however it would require your development team to implement it with your plugins manually. This is what is available by default with no extra development work.
 
