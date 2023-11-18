@@ -19,8 +19,8 @@ public final class ClientResource {
      * Compiles an internal resource.
      * @see Type#INTERNAL
      *
-     * @param value The local path to the resource
-     * @return The compiled resource
+     * @param value the local path to the resource
+     * @return the compiled resource
      */
     @NotNull
     public static ClientResource internal(@NotNull String value) {
@@ -31,8 +31,8 @@ public final class ClientResource {
      * Compiles an external resource.
      * @see Type#EXTERNAL
      *
-     * @param value The URL to the resource
-     * @return The compiled resource
+     * @param value the URL to the resource
+     * @return the compiled resource
      */
     @NotNull
     public static ClientResource external(@NotNull String value) {

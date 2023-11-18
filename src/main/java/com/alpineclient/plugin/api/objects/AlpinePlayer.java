@@ -65,7 +65,7 @@ public final class AlpinePlayer {
      * and platform.<p>
      * e.g. {@code 1.20-fabric}
      *
-     * @return The client brand
+     * @return the client brand
      */
     public String getClientBrand() {
         return this.version + "-" + this.platform;
@@ -74,7 +74,7 @@ public final class AlpinePlayer {
     /**
      * Sends a notification to this player.
      *
-     * @param notification The notification to send
+     * @param notification the notification to send
      */
     public void sendNotification(@NotNull Notification notification) {
         PacketNotificationAdd packet = new PacketNotificationAdd(notification);
@@ -84,7 +84,7 @@ public final class AlpinePlayer {
     /**
      * Sends a waypoint to this player.
      *
-     * @param waypoint The waypoint to send
+     * @param waypoint the waypoint to send
      */
     public void sendWaypoint(@NotNull Waypoint waypoint) {
         PacketWaypointAdd packet = new PacketWaypointAdd(waypoint);

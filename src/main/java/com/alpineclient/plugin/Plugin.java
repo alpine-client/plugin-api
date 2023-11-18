@@ -1,6 +1,7 @@
 package com.alpineclient.plugin;
 
 import co.aikar.commands.PaperCommandManager;
+import com.alpineclient.plugin.api.AlpineClientApi;
 import com.alpineclient.plugin.config.ConfigManager;
 import com.alpineclient.plugin.config.ConfigWrapper;
 import com.alpineclient.plugin.framework.Command;
