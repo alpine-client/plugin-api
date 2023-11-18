@@ -21,7 +21,7 @@ import java.util.List;
  * for interacting with them.
  *
  * @author Thomas Wearmouth
- * @since 1.0
+ * @since 1.0.0
  */
 public final class AlpinePlayer {
     /**

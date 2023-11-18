@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
  * Represents an image texture.
  *
  * @author BestBearr
- * @since 1.0
+ * @since 1.0.0
  */
 @Getter @AllArgsConstructor
 public final class ClientResource {

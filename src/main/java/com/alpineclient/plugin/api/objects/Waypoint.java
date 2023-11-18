@@ -14,7 +14,7 @@ import java.awt.*;
  * Represents a location in the world that is highlighted to the user.
  *
  * @author Thomas Wearmouth
- * @since 1.0
+ * @since 1.0.0
  */
 @Getter
 @ToString @EqualsAndHashCode

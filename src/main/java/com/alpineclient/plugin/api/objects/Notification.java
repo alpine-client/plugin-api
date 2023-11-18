@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
  * Represents an object that displays a toast popup on the user's screen.
  *
  * @author BestBearr
- * @since 1.0
+ * @since 1.0.0
  */
 @Getter
 @ToString @EqualsAndHashCode

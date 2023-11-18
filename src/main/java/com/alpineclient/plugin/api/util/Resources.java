@@ -8,7 +8,7 @@ import lombok.experimental.UtilityClass;
  * sent to the client.
  *
  * @author Thomas Wearmouth
- * @since 1.0
+ * @since 1.0.0
  */
 @UtilityClass
 public final class Resources {

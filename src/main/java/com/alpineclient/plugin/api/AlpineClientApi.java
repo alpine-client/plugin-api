@@ -13,7 +13,7 @@ import java.util.UUID;
  * Main wrapper class to interact with the API.
  *
  * @author Thomas Wearmouth
- * @since 1.0
+ * @since 1.0.0
  */
 public final class AlpineClientApi {
     /**

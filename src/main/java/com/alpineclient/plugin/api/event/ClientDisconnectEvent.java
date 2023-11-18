@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
  * Called whenever a user who had previously completed a handshake disconnects.
  *
  * @author Thomas Wearmouth
- * @since 1.0
+ * @since 1.0.0
  */
 public final class ClientDisconnectEvent extends Event {
     private static final HandlerList HANDLERS = new HandlerList();
