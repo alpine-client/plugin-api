@@ -14,7 +14,7 @@ import java.io.InputStreamReader;
 
 /**
  * @author BestBearr
- * @since 22/11/2021
+ * Created on 22/11/2021
  */
 public final class ConfigWrapper {
 

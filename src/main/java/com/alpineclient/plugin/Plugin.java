@@ -1,13 +1,11 @@
 package com.alpineclient.plugin;
 
 import co.aikar.commands.PaperCommandManager;
-import com.alpineclient.plugin.api.AlpineClientApi;
 import com.alpineclient.plugin.config.ConfigManager;
 import com.alpineclient.plugin.config.ConfigWrapper;
 import com.alpineclient.plugin.framework.Command;
 import com.alpineclient.plugin.framework.EventListener;
 import com.alpineclient.plugin.framework.PluginListener;
-import com.alpineclient.plugin.network.NetHandlerPlugin;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import lombok.Getter;
@@ -44,15 +42,11 @@ public final class Plugin extends JavaPlugin {
     @Getter
     private PlayerHandler playerHandler;
 
-    @Getter
-    private NetHandlerPlugin netHandler;
-
     @Override
     public void onEnable() {
         this.configManager = new ConfigManager();
         this.commandManager = new PaperCommandManager(this);
         this.playerHandler = new PlayerHandler();
-        this.netHandler = new NetHandlerPlugin();
 
         this.setupLocales();
         this.registerAll();

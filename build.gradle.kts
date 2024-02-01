@@ -34,9 +34,10 @@ dependencies {
     depend(this, "org.jetbrains:annotations:24.0.1", true)
     depend(this, "co.aikar:acf-paper:0.5.1-SNAPSHOT")
     depend(this, "de.exlll:configlib-spigot:4.2.0")
+    depend(this, "org.msgpack:msgpack-core:0.9.8")
 
-    depend(this, "net.kyori:adventure-platform-bukkit:4.3.0")
     val adventureVer = "4.14.0"
+    depend(this, "net.kyori:adventure-platform-bukkit:4.3.0")
     depend(this, "net.kyori:adventure-api:${adventureVer}")
     depend(this, "net.kyori:adventure-text-minimessage:${adventureVer}")
     depend(this, "net.kyori:adventure-text-serializer-legacy:${adventureVer}")
