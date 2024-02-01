@@ -1,7 +1,16 @@
-# Alpine Client API
-> Current version: 1.1.2
+<div align="center">
+<img src="https://alpn.cloud/119380848981184512/Banner_Cropped.png" alt="banner"/>
 
-### For Server Admins
+[![Java](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/built-with/java8_vector.svg)](https://www.java.com/)
+[![Website](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/documentation/website_vector.svg)](https://alpineclient.com/)
+
+## Plugin API 
+[![Version](https://lib.alpn.cloud/api/badge/latest/alpine-public/com/alpineclient/api-plugin?color=A62639&name=Latest)](https://lib.alpn.cloud/#/alpine-public/com/alpineclient/api-plugin)
+
+</div>
+<br/>
+
+### 🛡️ For Server Admins
 This plugin does the following by default:
 
 - Allows you to prevent any module from being enabled on your server.
@@ -14,7 +23,7 @@ The plugin has been explicitly verified to work on server versions `1.8.8`, `1.1
 
 Much more is possible with this API, however it would require your development team to implement it with your plugins manually. This is what is available by default with no extra development work.
 
-### For Developers
+### 💻 For Developers
 This plugin exposes an API that can be leveraged to add Alpine Client integrations to your plugins. The following are currently supported:
 
 - Accessing certain user data:
@@ -26,23 +35,21 @@ This plugin exposes an API that can be leveraged to add Alpine Client integratio
 
 The plugin can be added as a dependency to your Gradle buildscript like so:
 
-```
+```kotlin
 repositories {
-    maven {
-        name 'Alpine Public'
-        url 'https://lib.alpn.cloud/alpine-public'
-    }
+    maven("https://lib.alpn.cloud/alpine-public/")
 }
 
 dependencies {
-    implementation 'com.alpineclient:api-plugin:1.1.2'
+    implementation("com.alpineclient:api-plugin:{version}")
 }
 ```
+> ⚠️ Replace `{version}` with the [latest release](https://github.com/alpine-client/alpine-client-api/releases/)
 
 There is [documentation](https://docs.alpineclient.com/) available, however most of the functionality can be figured out by looking at the `AlpineClientApi` class. If you end up importing a class that isn't in `com.alpineclient.plugin.api` then you probably did something wrong.
 
 
-### Technical Information
+### 🛠️ Technical Information
 Utilizes the Minecraft [plugin channel](https://wiki.vg/Plugin_channels) system to communicate with users on Alpine Client.
 
 We currently use the following channels:
