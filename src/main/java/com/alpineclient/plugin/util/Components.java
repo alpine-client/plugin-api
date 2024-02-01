@@ -64,24 +64,6 @@ public final class Components {
         return reset().append(Component.join(JoinConfiguration.newlines(), components)).compact();
     }
 
-    @NotNull
-    public static Component list(@NotNull Component... components) {
-        Component[] list = Arrays.stream(components)
-                .map(v -> messageConfig.listItem.build("value", Reference.MINI_MESSAGE.serialize(v)))
-                .collect(Collectors.toList())
-                .toArray(new Component[0]);
-        return joinNewLines(list).compact();
-    }
-
-    @NotNull
-    public static Component map(@NotNull Map<Object, Component> map) {
-        Component[] list = map.entrySet().stream()
-                .map(v -> messageConfig.mapListItem.build("key", v.getKey(), "value", Reference.MINI_MESSAGE.serialize(v.getValue())))
-                .collect(Collectors.toList())
-                .toArray(new Component[0]);
-        return joinNewLines(list).compact();
-    }
-
     public static Component brackets(@NotNull Component value) {
         return reset().append(
                 join(

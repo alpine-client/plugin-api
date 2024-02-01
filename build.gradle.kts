@@ -23,24 +23,26 @@ repositories {
     maven("https://oss.sonatype.org/content/repositories/snapshots")
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://lib.alpn.cloud/alpine-public/")
-    maven("https://repo.aikar.co/content/groups/aikar/")
+    maven("https://repo.panda-lang.org/releases")
 }
 
 dependencies {
-    compileOnly("io.netty:netty-all:4.0.23.Final")
     compileOnly("org.apache.logging.log4j:log4j-core:2.0-beta9")
     compileOnly("org.spigotmc:spigot-api:${project.properties["spigot_version"]}")
 
-    depend(this, "org.jetbrains:annotations:24.0.1", true)
-    depend(this, "co.aikar:acf-paper:0.5.1-SNAPSHOT")
+    depend(this, "org.jetbrains:annotations:24.1.0", true)
     depend(this, "de.exlll:configlib-spigot:4.2.0")
     depend(this, "org.msgpack:msgpack-core:0.9.8")
 
-    val adventureVer = "4.14.0"
+    val liteCommands = "3.3.3"
+    depend(this, "dev.rollczi:litecommands-bukkit:${liteCommands}")
+    depend(this, "dev.rollczi:litecommands-adventure-platform:${liteCommands}")
+
+    val adventure = "4.14.0"
     depend(this, "net.kyori:adventure-platform-bukkit:4.3.0")
-    depend(this, "net.kyori:adventure-api:${adventureVer}")
-    depend(this, "net.kyori:adventure-text-minimessage:${adventureVer}")
-    depend(this, "net.kyori:adventure-text-serializer-legacy:${adventureVer}")
+    depend(this, "net.kyori:adventure-api:${adventure}")
+    depend(this, "net.kyori:adventure-text-minimessage:${adventure}")
+    depend(this, "net.kyori:adventure-text-serializer-legacy:${adventure}")
 
     val lombok = "org.projectlombok:lombok:1.18.30"
     compileOnly(lombok)

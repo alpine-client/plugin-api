@@ -37,7 +37,7 @@ public final class ConfigManager {
             .build();
 
     @Getter
-    private final Map<Class<? extends AbstractConfig<?>>, AbstractConfig<?>> registeredConfigurations = new HashMap<>();
+    private final Map<Class<? extends AbstractConfig>, AbstractConfig> registeredConfigurations = new HashMap<>();
 
     public ConfigManager() {
         instance = this;
@@ -51,43 +51,43 @@ public final class ConfigManager {
         this.registeredConfigurations.put(MessageConfig.class, new MessageConfig(new File(dataFolder, "messages.yml").toPath()));
 
         // Load/save the config
-        for (Map.Entry<Class<? extends AbstractConfig<?>>, AbstractConfig<?>> abstractConfigEntry : this.registeredConfigurations.entrySet()) {
-            AbstractConfig<?> config = abstractConfigEntry.getValue();
+        for (Map.Entry<Class<? extends AbstractConfig>, AbstractConfig> abstractConfigEntry : this.registeredConfigurations.entrySet()) {
+            AbstractConfig config = abstractConfigEntry.getValue();
             if (Files.exists(config.getConfigPath())) {
-                AbstractConfig<?> newConfig = YamlConfigurations.load(config.getConfigPath(), config.getClass(), PROPERTIES);
+                AbstractConfig newConfig = YamlConfigurations.load(config.getConfigPath(), config.getClass(), PROPERTIES);
                 newConfig.setConfigPath(config.getConfigPath());
-                this.registeredConfigurations.put((Class<? extends AbstractConfig<?>>) config.getClass(), newConfig);
-                YamlConfigurations.save(config.getConfigPath(), (Class<? super AbstractConfig<?>>) config.getClass(), newConfig, PROPERTIES);
+                this.registeredConfigurations.put(config.getClass(), newConfig);
+                YamlConfigurations.save(config.getConfigPath(), (Class<? super AbstractConfig>) config.getClass(), newConfig, PROPERTIES);
             }
             else {
-                YamlConfigurations.save(config.getConfigPath(), (Class<? super AbstractConfig<?>>) config.getClass(), config, PROPERTIES);
+                YamlConfigurations.save(config.getConfigPath(), (Class<? super AbstractConfig>) config.getClass(), config, PROPERTIES);
             }
         }
     }
 
     public void loadConfigs() {
-        for (Map.Entry<Class<? extends AbstractConfig<?>>, AbstractConfig<?>> abstractConfigEntry : this.registeredConfigurations.entrySet()) {
-            AbstractConfig<?> config = abstractConfigEntry.getValue();
+        for (Map.Entry<Class<? extends AbstractConfig>, AbstractConfig> abstractConfigEntry : this.registeredConfigurations.entrySet()) {
+            AbstractConfig config = abstractConfigEntry.getValue();
             if (!Files.exists(config.getConfigPath()))
-                YamlConfigurations.save(config.getConfigPath(), (Class<? super AbstractConfig<?>>) config.getClass(), config, PROPERTIES);
+                YamlConfigurations.save(config.getConfigPath(), (Class<? super AbstractConfig>) config.getClass(), config, PROPERTIES);
             else {
-                AbstractConfig<?> newConfig = YamlConfigurations.load(config.getConfigPath(), config.getClass(), PROPERTIES);
+                AbstractConfig newConfig = YamlConfigurations.load(config.getConfigPath(), config.getClass(), PROPERTIES);
                 newConfig.setConfigPath(config.getConfigPath());
-                this.registeredConfigurations.put((Class<? extends AbstractConfig<?>>) config.getClass(), newConfig);
+                this.registeredConfigurations.put(config.getClass(), newConfig);
             }
         }
     }
 
     public void saveConfigs() {
-        for (Map.Entry<Class<? extends AbstractConfig<?>>, AbstractConfig<?>> abstractConfigEntry : this.registeredConfigurations.entrySet()) {
-            AbstractConfig<?> config = abstractConfigEntry.getValue();
-            YamlConfigurations.save(config.getConfigPath(), (Class<? super AbstractConfig<?>>) config.getClass(), config, PROPERTIES);
+        for (Map.Entry<Class<? extends AbstractConfig>, AbstractConfig> abstractConfigEntry : this.registeredConfigurations.entrySet()) {
+            AbstractConfig config = abstractConfigEntry.getValue();
+            YamlConfigurations.save(config.getConfigPath(), (Class<? super AbstractConfig>) config.getClass(), config, PROPERTIES);
         }
     }
 
     @NotNull
-    public <T extends AbstractConfig<T>> T getConfig(@NotNull Class<T> configClass, @NotNull Consumer<T> consumer) {
-        AbstractConfig<?> config = this.registeredConfigurations.get(configClass);
+    public <T extends AbstractConfig> T getConfig(@NotNull Class<T> configClass, @NotNull Consumer<T> consumer) {
+        AbstractConfig config = this.registeredConfigurations.get(configClass);
         if (config != null) {
             return (T) config;
         }
@@ -95,8 +95,8 @@ public final class ConfigManager {
     }
 
     @NotNull
-    public <T extends AbstractConfig<T>> T getConfig(@NotNull Class<T> configClass) {
-        AbstractConfig<?> config = this.registeredConfigurations.get(configClass);
+    public <T extends AbstractConfig> T getConfig(@NotNull Class<T> configClass) {
+        AbstractConfig config = this.registeredConfigurations.get(configClass);
         if (config != null)
             return (T) config;
         throw new IllegalStateException("config was not registered");

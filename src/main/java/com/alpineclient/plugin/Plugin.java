@@ -1,21 +1,29 @@
 package com.alpineclient.plugin;
 
-import co.aikar.commands.PaperCommandManager;
+import com.alpineclient.plugin.command.CommandCheck;
+import com.alpineclient.plugin.command.CommandInvalidUsage;
+import com.alpineclient.plugin.command.CommandList;
+import com.alpineclient.plugin.command.CommandNotify;
 import com.alpineclient.plugin.config.ConfigManager;
-import com.alpineclient.plugin.config.ConfigWrapper;
-import com.alpineclient.plugin.framework.Command;
+import com.alpineclient.plugin.config.impl.MessageConfig;
 import com.alpineclient.plugin.framework.EventListener;
 import com.alpineclient.plugin.framework.PluginListener;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
+import dev.rollczi.litecommands.LiteCommands;
+import dev.rollczi.litecommands.LiteCommandsBuilder;
+import dev.rollczi.litecommands.adventure.bukkit.platform.LiteAdventurePlatformExtension;
+import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
+import dev.rollczi.litecommands.bukkit.LiteBukkitMessages;
+import dev.rollczi.litecommands.bukkit.LiteBukkitSettings;
+import dev.rollczi.litecommands.message.LiteMessages;
+import dev.rollczi.litecommands.schematic.SchematicFormat;
 import lombok.Getter;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.ApiStatus;
 
-import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Set;
@@ -37,7 +45,7 @@ public final class Plugin extends JavaPlugin {
     private ConfigManager configManager;
 
     @Getter
-    private PaperCommandManager commandManager;
+    private LiteCommands<CommandSender> commandManager;
 
     @Getter
     private PlayerHandler playerHandler;
@@ -45,11 +53,36 @@ public final class Plugin extends JavaPlugin {
     @Override
     public void onEnable() {
         this.configManager = new ConfigManager();
-        this.commandManager = new PaperCommandManager(this);
         this.playerHandler = new PlayerHandler();
+        this.commandManager = this.createCommandManager();
 
-        this.setupLocales();
         this.registerAll();
+    }
+
+    @SuppressWarnings("UnstableApiUsage")
+    private LiteCommands<CommandSender> createCommandManager() {
+        MessageConfig config = ConfigManager.getInstance().getConfig(MessageConfig.class);
+        LiteCommandsBuilder<CommandSender, LiteBukkitSettings, ?> builder = LiteBukkitFactory.builder(this.getName())
+                // <Required Arguments> [Optional Arguments]
+                .schematicGenerator(SchematicFormat.angleBrackets())
+
+                // Enable Adventure support
+                .extension(new LiteAdventurePlatformExtension<>(Reference.AUDIENCES), cfg -> cfg
+                        .miniMessage(true)
+                        .legacyColor(true)
+                        .colorizeArgument(true)
+                        .serializer(Reference.MINI_MESSAGE)
+                )
+
+                // Feed in our commands
+                .commands(new CommandCheck(), new CommandList(), new CommandNotify())
+
+                // Configure error messages
+                .message(LiteMessages.MISSING_PERMISSIONS, input -> config.missingPermissions.build())
+                .message(LiteBukkitMessages.PLAYER_NOT_FOUND, input -> config.playerNotFound.build("player", input))
+                .message(LiteBukkitMessages.PLAYER_ONLY, input -> config.playerOnly.build())
+                .invalidUsage(new CommandInvalidUsage());
+        return builder.build();
     }
 
     @SuppressWarnings("UnstableApiUsage")
@@ -83,32 +116,10 @@ public final class Plugin extends JavaPlugin {
                     Bukkit.getMessenger().registerOutgoingPluginChannel(this, listener.getChannelId());
                     Bukkit.getMessenger().registerIncomingPluginChannel(this, listener.getChannelId(), listener);
                 }
-                else if (Command.class.isAssignableFrom(clazz)) {
-                    Constructor<? extends Command> constructor = ((Class<? extends Command>) clazz).getDeclaredConstructor();
-                    constructor.setAccessible(true);
-                    Command command = constructor.newInstance();
-                    this.commandManager.registerCommand(command, true);
-                    command.registerCompletions(this.commandManager);
-                    command.registerConditions(this.commandManager);
-                }
             }
             catch (Exception ex) {
                 Reference.LOGGER.error("Failed to register " + clazz.getName(), ex);
             }
-        }
-    }
-
-    private void setupLocales() {
-        ConfigWrapper acfMessages = new ConfigWrapper("acf_config.yml");
-        acfMessages.getConfig().options().copyDefaults(true);
-        acfMessages.saveConfig();
-        acfMessages.saveDefaultConfig();
-
-        try {
-            this.commandManager.getLocales().loadYamlLanguageFile(new File(this.getDataFolder(), "acf_config.yml"),
-                    this.commandManager.getLocales().getDefaultLocale());
-        } catch (IOException | InvalidConfigurationException ex) {
-            Reference.LOGGER.error("Unable to load ACF config", ex);
         }
     }
 }

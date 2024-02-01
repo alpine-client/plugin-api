@@ -1,23 +1,24 @@
 package com.alpineclient.plugin.command;
 
-import co.aikar.commands.annotation.CommandAlias;
-import co.aikar.commands.annotation.CommandPermission;
-import co.aikar.commands.annotation.Default;
-import co.aikar.commands.annotation.Description;
 import com.alpineclient.plugin.Plugin;
-import com.alpineclient.plugin.framework.Command;
+import com.alpineclient.plugin.framework.BaseCommand;
+import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.context.Context;
+import dev.rollczi.litecommands.annotations.description.Description;
+import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.permission.Permission;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@CommandAlias("aclist|alist")
+@Command(name = "aclist", aliases = { "alist" })
 @Description("Shows a list of Alpine Client users on the server")
-@CommandPermission("alpineapi.list")
-public final class CommandList extends Command {
-    @Default
-    public void execute(CommandSender sender) {
+@Permission("alpineapi.list")
+public final class CommandList extends BaseCommand {
+    @Execute
+    public void execute(@Context CommandSender sender) {
         List<String> playerNames = Plugin.getInstance().getPlayerHandler().getConnectedPlayers().stream()
                 .map(player -> player == null ? null : player.getBukkitPlayer().getName())
                 .filter(Objects::nonNull)
