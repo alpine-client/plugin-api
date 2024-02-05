@@ -59,14 +59,6 @@ public final class AlpineClientApi {
     }
 
     /**
-     * @deprecated in favour of {@link AlpineClientApi#getPlayer(Player)}
-     */
-    @Deprecated @ApiStatus.ScheduledForRemoval(inVersion = "1.2.0")
-    public static @Nullable AlpinePlayer getConnectedPlayer(@NotNull Player player) {
-        return Plugin.getInstance().getPlayerHandler().getConnectedPlayer(player);
-    }
-
-    /**
      * Get a player connected via Alpine Client.
      *
      * @param player the {@link org.bukkit.entity.Player}
@@ -80,14 +72,6 @@ public final class AlpineClientApi {
     }
 
     /**
-     * @deprecated in favour of {@link AlpineClientApi#getPlayer(UUID)}
-     */
-    @Deprecated @ApiStatus.ScheduledForRemoval(inVersion = "1.2.0")
-    public static @Nullable AlpinePlayer getConnectedPlayer(@NotNull UUID id) {
-        return Plugin.getInstance().getPlayerHandler().getConnectedPlayer(id);
-    }
-
-    /**
      * Get a player connected via Alpine Client.
      *
      * @param id the {@link java.util.UUID} of the players account
@@ -98,14 +82,6 @@ public final class AlpineClientApi {
      */
     public static @NotNull Optional<AlpinePlayer> getPlayer(@NotNull UUID id) {
         return Optional.ofNullable(Plugin.getInstance().getPlayerHandler().getConnectedPlayer(id));
-    }
-
-    /**
-     * @deprecated in favour of {@link AlpineClientApi#getAllPlayers()}
-     */
-    @Deprecated @ApiStatus.ScheduledForRemoval(inVersion = "1.2.0")
-    public static @NotNull Collection<AlpinePlayer> getConnectedPlayers() {
-        return Plugin.getInstance().getPlayerHandler().getConnectedPlayers();
     }
 
     /**
