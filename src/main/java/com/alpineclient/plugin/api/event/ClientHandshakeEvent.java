@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
  * Called whenever a user successfully completes a handshake.
  *
  * @author Thomas Wearmouth
- * @since 1.0
+ * @since 1.0.0
  */
 public final class ClientHandshakeEvent extends Event {
     private static final HandlerList HANDLERS = new HandlerList();

@@ -48,7 +48,7 @@ public final class PlayerHandler {
         return this.connectedPlayers.get(id);
     }
 
-    public Collection<AlpinePlayer> getConnectedPlayers() {
+    public @NotNull Collection<AlpinePlayer> getConnectedPlayers() {
         return this.connectedPlayers.values();
     }
 }

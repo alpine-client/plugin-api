@@ -1,7 +1,9 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import java.text.SimpleDateFormat
+import java.util.*
 
 plugins {
-    id("java")
+    id("java-library")
     id("maven-publish")
     id("net.kyori.blossom") version "1.2.0"
     id("com.github.johnrengelman.shadow") version "7.1.2"
@@ -21,26 +23,28 @@ repositories {
     maven("https://oss.sonatype.org/content/repositories/snapshots")
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://lib.alpn.cloud/alpine-public/")
-    maven("https://repo.aikar.co/content/groups/aikar/")
+    maven("https://repo.panda-lang.org/releases")
 }
 
 dependencies {
-    compileOnly("io.netty:netty-all:4.0.23.Final")
     compileOnly("org.apache.logging.log4j:log4j-core:2.0-beta9")
     compileOnly("org.spigotmc:spigot-api:${project.properties["spigot_version"]}")
 
-    shade(this, "org.jetbrains:annotations:24.0.1")
-    shade(this, "co.aikar:acf-paper:0.5.1-SNAPSHOT")
-    shade(this, "de.exlll:configlib-spigot:4.2.0")
-    shade(this, "org.reflections:reflections:0.10.2")
+    depend(this, "org.jetbrains:annotations:24.1.0", true)
+    depend(this, "de.exlll:configlib-spigot:4.2.0")
+    depend(this, "org.msgpack:msgpack-core:0.9.8")
 
-    shade(this, "net.kyori:adventure-platform-bukkit:4.3.0")
-    val adventureVer = "4.14.0"
-    shade(this, "net.kyori:adventure-api:${adventureVer}")
-    shade(this, "net.kyori:adventure-text-minimessage:${adventureVer}")
-    shade(this, "net.kyori:adventure-text-serializer-legacy:${adventureVer}")
+    val liteCommands = "3.3.3"
+    depend(this, "dev.rollczi:litecommands-bukkit:${liteCommands}")
+    depend(this, "dev.rollczi:litecommands-adventure-platform:${liteCommands}")
 
-    val lombok = "org.projectlombok:lombok:1.18.28"
+    val adventure = "4.14.0"
+    depend(this, "net.kyori:adventure-platform-bukkit:4.3.0")
+    depend(this, "net.kyori:adventure-api:${adventure}")
+    depend(this, "net.kyori:adventure-text-minimessage:${adventure}")
+    depend(this, "net.kyori:adventure-text-serializer-legacy:${adventure}")
+
+    val lombok = "org.projectlombok:lombok:1.18.30"
     compileOnly(lombok)
     annotationProcessor(lombok)
 }
@@ -59,6 +63,24 @@ tasks.withType<Jar> {
     exclude("META-INF/versions/")
     exclude("META-INF/maven/")
     exclude("javassist/**/*.html")
+
+    // Fill out manifest
+    manifest {
+        attributes(
+            "Manifest-Version" to "1.0",
+            "Created-By" to "Gradle",
+            "Built-JDK" to "${System.getProperty("java.version")} (${System.getProperty("java.vendor")})",
+            "Built-By" to System.getProperty("user.name"),
+            "Built-Date" to SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(Date()),
+            "Name" to project.group.toString().replace(".", "/"),
+            "Implementation-Title" to project.properties["plugin_name"],
+            "Implementation-Version" to project.version,
+            "Implementation-Vendor" to "Crystal Development, LLC.",
+            "Specification-Title" to project.properties["plugin_name"],
+            "Specification-Version" to project.version,
+            "Specification-Vendor" to "Crystal Development, LLC.",
+        )
+    }
 }
 
 tasks.withType<ShadowJar> {
@@ -96,7 +118,8 @@ tasks.processResources {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            from(components["java"])
+            artifact(tasks["jar"])
+
             pom {
                 name.set(project.properties["plugin_name"] as String)
                 description.set("Plugin implementation of the Alpine Client API.")
@@ -106,6 +129,18 @@ publishing {
                 artifactId = "api-plugin"
                 version = compileVersion()
                 packaging = "jar"
+
+                withXml {
+                    val dependenciesNode = asNode().appendNode("dependencies")
+
+                    configurations["api"].allDependencies.forEach {
+                        val dependencyNode = dependenciesNode.appendNode("dependency")
+                        dependencyNode.appendNode("groupId", it.group)
+                        dependencyNode.appendNode("artifactId", it.name)
+                        dependencyNode.appendNode("version", it.version)
+                        dependencyNode.appendNode("scope", "compile")
+                    }
+                }
             }
         }
     }
@@ -142,7 +177,9 @@ fun compileVersion(): String {
     return "${major}.${minor}.${patch}${if (preRelease == "none") "" else preRelease}"
 }
 
-fun shade(scope: DependencyHandlerScope, dependency: String) {
+fun depend(scope: DependencyHandlerScope, dependency: String, api: Boolean = false) {
     scope.implementation(dependency)
     scope.shadow(dependency)
+    if (api)
+        scope.api(dependency)
 }

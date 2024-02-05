@@ -3,11 +3,8 @@ package com.alpineclient.plugin.listener.plugin;
 import com.alpineclient.plugin.Plugin;
 import com.alpineclient.plugin.Reference;
 import com.alpineclient.plugin.framework.PluginListener;
-import com.alpineclient.plugin.util.ByteBufUtils;
 import com.alpineclient.plugin.util.object.HandshakeData;
 import com.google.gson.JsonSyntaxException;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.jetbrains.annotations.NotNull;
@@ -18,6 +15,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public final class HandshakeListener extends PluginListener {
     public static final String CHANNEL_ID = "ac:handshake";
+
+    private static final byte[] MAGIC_NUMBER = new byte[] { 0x3A, 0x3D };
 
     public HandshakeListener() {
         super(CHANNEL_ID);
@@ -32,7 +31,7 @@ public final class HandshakeListener extends PluginListener {
                 boolean success = Plugin.getInstance().getPlayerHandler().addConnectedPlayer(player, data);
                 if (success) {
                     player.setMetadata("IsOnAlpineClient", new FixedMetadataValue(Plugin.getInstance(), true));
-                    this.sendOK(player);
+                    player.sendPluginMessage(Plugin.getInstance(), this.getChannelId(), MAGIC_NUMBER);
                 }
             }
             catch (JsonSyntaxException ex) {
@@ -42,11 +41,5 @@ public final class HandshakeListener extends PluginListener {
         else {
             Reference.LOGGER.warn("Invalid (zero-length) handshake payload received from {}", player.getName());
         }
-    }
-
-    private void sendOK(Player player) {
-        ByteBuf buf = Unpooled.buffer();
-        ByteBufUtils.writeUTF8String(buf, "OK");
-        player.sendPluginMessage(Plugin.getInstance(), this.getChannelId(), buf.array());
     }
 }

@@ -3,17 +3,19 @@ package com.alpineclient.plugin.api;
 import com.alpineclient.plugin.Plugin;
 import com.alpineclient.plugin.api.objects.AlpinePlayer;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
  * Main wrapper class to interact with the API.
  *
  * @author Thomas Wearmouth
- * @since 1.0
+ * @since 1.0.0
  */
 public final class AlpineClientApi {
     /**
@@ -24,66 +26,72 @@ public final class AlpineClientApi {
     }
 
     /**
-     * Check if a player is currently connected.
+     * Check if a player is currently connected via Alpine Client.
      *
-     * @param player The {@link com.alpineclient.plugin.api.objects.AlpinePlayer}
+     * @param player the {@link com.alpineclient.plugin.api.objects.AlpinePlayer}
      *
-     * @return Whether the player is connected
+     * @return true if the player is using Alpine Client
      */
     public static boolean isPlayerConnected(@NotNull AlpinePlayer player) {
         return isPlayerConnected(player.getBukkitPlayer().getUniqueId());
     }
 
     /**
-     * Check if a player is currently connected.
+     * Check if a player is connected via Alpine Client.
      *
-     * @param player The {@link org.bukkit.entity.Player}
+     * @param player the {@link org.bukkit.entity.Player}
      *
-     * @return Whether the player is connected
+     * @return true if the player is using Alpine Client
      */
     public static boolean isPlayerConnected(@NotNull Player player) {
         return isPlayerConnected(player.getUniqueId());
     }
 
     /**
-     * Check if a player is currently connected.
+     * Check if a player is connected via Alpine Client.
      *
-     * @param id The player's {@link java.util.UUID}
+     * @param id the {@link java.util.UUID} of the players account
      *
-     * @return Whether the player is connected
+     * @return true if the player is using Alpine Client
      */
     public static boolean isPlayerConnected(@NotNull UUID id) {
         return Plugin.getInstance().getPlayerHandler().isPlayerConnected(id);
     }
 
     /**
-     * Get a currently connected player.
+     * Get a player connected via Alpine Client.
      *
-     * @param player The {@link org.bukkit.entity.Player}
+     * @param player the {@link org.bukkit.entity.Player}
      *
-     * @return The {@link com.alpineclient.plugin.api.objects.AlpinePlayer}
+     * @return an {@link Optional} describing the player
+     *
+     * @since 1.1.2
      */
-    public static @Nullable AlpinePlayer getConnectedPlayer(@NotNull Player player) {
-        return Plugin.getInstance().getPlayerHandler().getConnectedPlayer(player);
+    public static @NotNull Optional<AlpinePlayer> getPlayer(@NotNull Player player) {
+        return Optional.ofNullable(Plugin.getInstance().getPlayerHandler().getConnectedPlayer(player));
     }
 
     /**
-     * Get a currently connected player.
+     * Get a player connected via Alpine Client.
      *
-     * @param id The player's {@link java.util.UUID}
+     * @param id the {@link java.util.UUID} of the players account
      *
-     * @return The {@link com.alpineclient.plugin.api.objects.AlpinePlayer}
+     * @return an {@link Optional} describing the player
+     *
+     * @since 1.1.2
      */
-    public static @Nullable AlpinePlayer getConnectedPlayer(@NotNull UUID id) {
-        return Plugin.getInstance().getPlayerHandler().getConnectedPlayer(id);
+    public static @NotNull Optional<AlpinePlayer> getPlayer(@NotNull UUID id) {
+        return Optional.ofNullable(Plugin.getInstance().getPlayerHandler().getConnectedPlayer(id));
     }
 
     /**
-     * Get currently connected players.
+     * Get all players connected via Alpine Client.
      *
      * @return A list containing {@link com.alpineclient.plugin.api.objects.AlpinePlayer}
+     *
+     * @since 1.1.2
      */
-    public static @NotNull Collection<AlpinePlayer> getConnectedPlayers() {
+    public static @NotNull Collection<AlpinePlayer> getAllPlayers() {
         return Plugin.getInstance().getPlayerHandler().getConnectedPlayers();
     }
 }

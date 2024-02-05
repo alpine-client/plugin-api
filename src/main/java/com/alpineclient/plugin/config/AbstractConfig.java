@@ -14,7 +14,7 @@ import java.nio.file.Path;
  * Created on 06/06/23
  */
 @Configuration @NoArgsConstructor
-public class AbstractConfig<T extends AbstractConfig<?>> {
+public class AbstractConfig {
     public static final TextColor PRIMARY_COLOR = TextColor.color(0x06dd63);
     public static final TextColor SECONDARY_COLOR = TextColor.color(0x68f9a7);
     public static final TextColor PRIMARY_ERROR_COLOR = TextColor.color(0xef2c13);

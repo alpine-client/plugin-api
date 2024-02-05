@@ -17,7 +17,7 @@ import java.nio.file.Path;
  * Created on 06/06/23
  */
 @NoArgsConstructor
-public final class MessageConfig extends AbstractConfig<MessageConfig> {
+public final class MessageConfig extends AbstractConfig {
 
     {
         Components.setMessageConfig(this);
@@ -41,32 +41,10 @@ public final class MessageConfig extends AbstractConfig<MessageConfig> {
             .withoutPrefix()
             .build();
 
-    public ConfigMessage listItem = ConfigMessage.builder()
-            .message(
-                    Component.text(" - ").color(SECONDARY_COLOR).decorate(TextDecoration.BOLD),
-                    Component.text("%value%"))
-            .withoutPrefix()
-            .build();
-
-    public ConfigMessage mapListItem = ConfigMessage.builder()
-            .message(
-                    Component.text(" - ").color(SECONDARY_COLOR).decorate(TextDecoration.BOLD),
-                    Component.text("%key%").color(PRIMARY_COLOR).decorate(TextDecoration.BOLD),
-                    Component.text(" › ").color(DIVIDER_COLOR),
-                    Component.text("%value%"))
-            .withoutPrefix()
-            .build();
-
     public ConfigMessage clientCheck = ConfigMessage.normal(
             Component.text("%player_name%").color(TEXT_COLOR),
             Component.text("%player_status%"),
             Component.text("using %client_text%.").color(TEXT_COLOR)
-    );
-
-    public ConfigMessage notifSuccess = ConfigMessage.normal(
-            Component.text("Successfully notified ").color(TEXT_COLOR),
-            Component.text("%player_name%").color(SECONDARY_COLOR),
-            Component.text(".").color(TEXT_COLOR)
     );
 
     public ConfigMessage notOnClient = ConfigMessage.error(
@@ -88,6 +66,38 @@ public final class MessageConfig extends AbstractConfig<MessageConfig> {
             )
             .withoutPrefix()
             .build();
+
+    public ConfigMessage notifSuccess = ConfigMessage.normal(
+            Component.text("Successfully notified ").color(TEXT_COLOR),
+            Component.text("%player_name%").color(SECONDARY_COLOR),
+            Component.text(".").color(TEXT_COLOR)
+    );
+
+    public ConfigMessage missingPermissions = ConfigMessage.error(
+            Component.text("You do not have permission to execute this command.").color(ERROR_TEXT_COLOR)
+    );
+
+    public ConfigMessage playerNotFound = ConfigMessage.error(
+            Component.text("Could not find a player with the name \"%player%\".").color(ERROR_TEXT_COLOR)
+    );
+
+    public ConfigMessage playerOnly = ConfigMessage.error(
+            Component.text("Console may not execute this command.").color(ERROR_TEXT_COLOR)
+    );
+
+    public ConfigMessage invalidUsageSingle = ConfigMessage.error(
+            Component.text("Invalid command usage. Syntax: ").color(ERROR_TEXT_COLOR),
+            Component.text("%syntax%").color(SECONDARY_ERROR_COLOR)
+    );
+
+    public ConfigMessage invalidUsageMultiHeader = ConfigMessage.error(
+            Component.text("Invalid command usage:").color(ERROR_TEXT_COLOR)
+    );
+
+    public ConfigMessage invalidUsageMultiContent = ConfigMessage.error(
+            Component.text("  * ").color(DIVIDER_COLOR),
+            Component.text("%syntax%").color(SECONDARY_ERROR_COLOR)
+    );
 
     public MessageConfig(@NotNull Path configPath) {
         super(configPath);

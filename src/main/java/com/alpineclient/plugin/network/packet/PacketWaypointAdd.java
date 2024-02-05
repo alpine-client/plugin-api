@@ -1,14 +1,14 @@
 package com.alpineclient.plugin.network.packet;
 
 import com.alpineclient.plugin.api.objects.Waypoint;
-import com.alpineclient.plugin.network.ByteBufWrapper;
-import com.alpineclient.plugin.network.NetHandlerPlugin;
 import com.alpineclient.plugin.network.Packet;
 import com.alpineclient.plugin.network.WriteOnly;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.msgpack.core.MessagePacker;
+import org.msgpack.core.MessageUnpacker;
 
 import java.io.IOException;
 
@@ -22,23 +22,23 @@ public final class PacketWaypointAdd extends Packet {
     private Waypoint waypoint;
 
     @Override
-    public void write(@NotNull ByteBufWrapper out) throws IOException {
-        out.writeString(this.waypoint.getName());
-        out.writeInt(this.waypoint.getPos().getBlockX());
-        out.writeInt(this.waypoint.getPos().getBlockY());
-        out.writeInt(this.waypoint.getPos().getBlockZ());
-        out.writeInt(this.waypoint.getColor());
-        out.writeString(this.waypoint.getWorld());
-        out.writeInt((int) this.waypoint.getDuration());
+    public void write(@NotNull MessagePacker packer) throws IOException {
+        packer.packString(this.waypoint.getName());
+        packer.packInt(this.waypoint.getPos().getBlockX());
+        packer.packInt(this.waypoint.getPos().getBlockY());
+        packer.packInt(this.waypoint.getPos().getBlockZ());
+        packer.packInt(this.waypoint.getColor());
+        packer.packString(this.waypoint.getWorld());
+        packer.packLong(this.waypoint.getDuration());
     }
 
     @Override
-    public void read(@NotNull ByteBufWrapper in) throws IOException {
+    public void read(@NotNull MessageUnpacker unpacker) {
         // NO-OP
     }
 
     @Override
-    public void process(@NotNull Player player, @NotNull NetHandlerPlugin handler) {
+    public void process(@NotNull Player player) {
         // NO-OP
     }
 }

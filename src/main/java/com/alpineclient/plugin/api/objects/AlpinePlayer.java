@@ -3,6 +3,7 @@ package com.alpineclient.plugin.api.objects;
 import com.alpineclient.plugin.Plugin;
 import com.alpineclient.plugin.config.ConfigManager;
 import com.alpineclient.plugin.config.impl.GeneralConfig;
+import com.alpineclient.plugin.listener.plugin.PlayListener;
 import com.alpineclient.plugin.network.Packet;
 import com.alpineclient.plugin.network.packet.PacketModules;
 import com.alpineclient.plugin.network.packet.PacketNotificationAdd;
@@ -21,7 +22,7 @@ import java.util.List;
  * for interacting with them.
  *
  * @author Thomas Wearmouth
- * @since 1.0
+ * @since 1.0.0
  */
 public final class AlpinePlayer {
     /**
@@ -65,7 +66,7 @@ public final class AlpinePlayer {
      * and platform.<p>
      * e.g. {@code 1.20-fabric}
      *
-     * @return The client brand
+     * @return the client brand
      */
     public String getClientBrand() {
         return this.version + "-" + this.platform;
@@ -74,7 +75,7 @@ public final class AlpinePlayer {
     /**
      * Sends a notification to this player.
      *
-     * @param notification The notification to send
+     * @param notification the notification to send
      */
     public void sendNotification(@NotNull Notification notification) {
         PacketNotificationAdd packet = new PacketNotificationAdd(notification);
@@ -84,7 +85,7 @@ public final class AlpinePlayer {
     /**
      * Sends a waypoint to this player.
      *
-     * @param waypoint The waypoint to send
+     * @param waypoint the waypoint to send
      */
     public void sendWaypoint(@NotNull Waypoint waypoint) {
         PacketWaypointAdd packet = new PacketWaypointAdd(waypoint);
@@ -109,6 +110,6 @@ public final class AlpinePlayer {
     }
 
     private void sendPacket(Packet packet) {
-        Plugin.getInstance().getNetHandler().sendPacket(this.bukkitPlayer, packet);
+        this.bukkitPlayer.sendPluginMessage(Plugin.getInstance(), PlayListener.CHANNEL_ID, packet.toBytes());
     }
 }

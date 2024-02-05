@@ -4,6 +4,7 @@ import com.alpineclient.plugin.Plugin;
 import com.alpineclient.plugin.Reference;
 import com.alpineclient.plugin.framework.PluginListener;
 import com.alpineclient.plugin.PlayerHandler;
+import com.alpineclient.plugin.network.Packet;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,7 +22,10 @@ public final class PlayListener extends PluginListener {
     @Override
     public void onMessage(@NotNull Player player, byte[] message) {
         if (Plugin.getInstance().getPlayerHandler().isPlayerConnected(player.getUniqueId())) {
-            Plugin.getInstance().getNetHandler().handlePacket(player, message);
+            Packet packet = Packet.fromBytes(message);
+            if (packet != null) {
+                packet.process(player);
+            }
         }
         else {
             Reference.LOGGER.warn("{} sent a payload before performing a handshake; ignoring", player.getName());

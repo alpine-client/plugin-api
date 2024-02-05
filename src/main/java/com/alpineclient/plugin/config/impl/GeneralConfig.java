@@ -14,7 +14,7 @@ import java.util.Map;
  * Created on 26/06/2023
  */
 @NoArgsConstructor
-public final class GeneralConfig extends AbstractConfig<GeneralConfig> {
+public final class GeneralConfig extends AbstractConfig {
     @Comment({
             " --- Debug Logging --- ",
             "    Whether the plugin should log standard interactions with players."

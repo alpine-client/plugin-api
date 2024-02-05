@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -13,21 +14,21 @@ import java.awt.*;
  * Represents a location in the world that is highlighted to the user.
  *
  * @author Thomas Wearmouth
- * @since 1.0
+ * @since 1.0.0
  */
 @Getter
 @ToString @EqualsAndHashCode
 public final class Waypoint {
     /**
-     * The default color used in {@link Builder}
+     * The default color used in {@link Builder}.
      */
     public static final int DEFAULT_COLOR = new Color(78, 75, 214).getRGB();
     /**
-     * The default world name used in {@link Builder}
+     * The default world name used in {@link Builder}.
      */
     public static final String DEFAULT_WORLD = "unknown_world";
     /**
-     * The default duration used in {@link Builder}
+     * The default duration used in {@link Builder}.
      */
     public static final long DEFAULT_DURATION = 5000L;
     /**
@@ -50,9 +51,9 @@ public final class Waypoint {
     }
 
     /**
-     * Begins a new builder of this class
+     * Begins a new builder of this class.
      *
-     * @return The builder
+     * @return the builder
      */
     @NotNull
     public static Builder builder() {
@@ -60,7 +61,7 @@ public final class Waypoint {
     }
 
     /**
-     * Builder for {@link Waypoint}
+     * Builder for {@link Waypoint}.
      */
     public static class Builder {
         private String name = null;
@@ -70,10 +71,10 @@ public final class Waypoint {
         private long duration = DEFAULT_DURATION;
 
         /**
-         * Sets the name to be built into the {@link Waypoint}
+         * Sets the name to be built into the {@link Waypoint}.
          *
-         * @param name The name
-         * @return The builder
+         * @param name the name
+         * @return the builder
          */
         @NotNull
         public Builder name(@NotNull String name) {
@@ -82,10 +83,10 @@ public final class Waypoint {
         }
 
         /**
-         * Sets the position to be built into the {@link Waypoint}
+         * Sets the position to be built into the {@link Waypoint}.
          *
-         * @param pos The position
-         * @return The builder
+         * @param pos the position
+         * @return the builder
          */
         @NotNull
         public Builder pos(@NotNull Location pos) {
@@ -95,10 +96,10 @@ public final class Waypoint {
 
 
         /**
-         * Sets the color to be built into the {@link Waypoint}
+         * Sets the color to be built into the {@link Waypoint}.
          *
-         * @param color The color
-         * @return The builder
+         * @param color the color
+         * @return the builder
          */
         @NotNull
         public Builder color(int color) {
@@ -107,10 +108,10 @@ public final class Waypoint {
         }
 
         /**
-         * Sets the world name to be built into the {@link Waypoint}
+         * Sets the world name to be built into the {@link Waypoint}.
          *
-         * @param world The world name
-         * @return The builder
+         * @param world the world name
+         * @return the builder
          */
         @NotNull
         public Builder world(@NotNull String world) {
@@ -119,10 +120,22 @@ public final class Waypoint {
         }
 
         /**
-         * Sets the duration to be built into the {@link Waypoint}
+         * Sets the world name to be built into the {@link Waypoint}.
          *
-         * @param duration The duration
-         * @return The builder
+         * @param worldObj the world object
+         * @return the builder
+         */
+        @NotNull
+        public Builder world(@NotNull World worldObj) {
+            this.world = worldObj.getName();
+            return this;
+        }
+
+        /**
+         * Sets the duration to be built into the {@link Waypoint}.
+         *
+         * @param duration the duration
+         * @return the builder
          */
         @NotNull
         public Builder duration(long duration) {
@@ -131,9 +144,9 @@ public final class Waypoint {
         }
 
         /**
-         * Sets the duration to be built into the {@link Waypoint} to infinite
+         * Sets the duration to be built into the {@link Waypoint} to infinite.
          *
-         * @return The builder
+         * @return the builder
          */
         @NotNull
         public Builder infinite() {
@@ -142,9 +155,9 @@ public final class Waypoint {
         }
 
         /**
-         * Assembles the {@link Waypoint}
+         * Assembles the {@link Waypoint}.
          *
-         * @return The built {@link Waypoint}
+         * @return the built {@link Waypoint}
          */
         @NotNull
         public Waypoint build() {
