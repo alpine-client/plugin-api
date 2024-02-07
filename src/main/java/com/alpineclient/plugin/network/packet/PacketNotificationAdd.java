@@ -4,8 +4,6 @@ import com.alpineclient.plugin.api.objects.ClientResource;
 import com.alpineclient.plugin.api.objects.Notification;
 import com.alpineclient.plugin.network.Packet;
 import com.alpineclient.plugin.network.WriteOnly;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.msgpack.core.MessagePacker;
@@ -18,9 +16,12 @@ import java.io.IOException;
  * Created on 13/06/23
  */
 @WriteOnly
-@AllArgsConstructor @NoArgsConstructor
 public final class PacketNotificationAdd extends Packet {
-    private Notification notification;
+    private final Notification notification;
+
+    public PacketNotificationAdd(@NotNull Notification notification) {
+        this.notification = notification;
+    }
 
     @Override
     public void write(@NotNull MessagePacker packer) throws IOException {

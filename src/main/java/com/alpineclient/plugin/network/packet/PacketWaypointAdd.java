@@ -3,8 +3,7 @@ package com.alpineclient.plugin.network.packet;
 import com.alpineclient.plugin.api.objects.Waypoint;
 import com.alpineclient.plugin.network.Packet;
 import com.alpineclient.plugin.network.WriteOnly;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.alpineclient.plugin.util.MsgPackUtils;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.msgpack.core.MessagePacker;
@@ -17,12 +16,16 @@ import java.io.IOException;
  * Created on 26/06/2023
  */
 @WriteOnly
-@AllArgsConstructor @NoArgsConstructor
 public final class PacketWaypointAdd extends Packet {
-    private Waypoint waypoint;
+    private final Waypoint waypoint;
+
+    public PacketWaypointAdd(@NotNull Waypoint waypoint) {
+        this.waypoint = waypoint;
+    }
 
     @Override
     public void write(@NotNull MessagePacker packer) throws IOException {
+        MsgPackUtils.packUuid(packer, this.waypoint.getId());
         packer.packString(this.waypoint.getName());
         packer.packInt(this.waypoint.getPos().getBlockX());
         packer.packInt(this.waypoint.getPos().getBlockY());

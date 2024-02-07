@@ -1,9 +1,6 @@
 package com.alpineclient.plugin;
 
-import com.alpineclient.plugin.command.CommandCheck;
-import com.alpineclient.plugin.command.CommandInvalidUsage;
-import com.alpineclient.plugin.command.CommandList;
-import com.alpineclient.plugin.command.CommandNotify;
+import com.alpineclient.plugin.command.*;
 import com.alpineclient.plugin.config.ConfigManager;
 import com.alpineclient.plugin.config.impl.MessageConfig;
 import com.alpineclient.plugin.framework.EventListener;

@@ -9,6 +9,7 @@ import org.bukkit.World;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
+import java.util.UUID;
 
 /**
  * Represents a location in the world that is highlighted to the user.
@@ -36,6 +37,7 @@ public final class Waypoint {
      */
     public static final long NO_DURATION = -1L;
 
+    private final UUID id = UUID.randomUUID();
     private final String name;
     private final Location pos;
     private final int color;
