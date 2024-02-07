@@ -1,31 +1,22 @@
 package com.alpineclient.plugin.util;
 
-import com.alpineclient.plugin.Reference;
 import com.alpineclient.plugin.config.AbstractConfig;
-import com.alpineclient.plugin.config.impl.MessageConfig;
-import lombok.Setter;
 import lombok.experimental.UtilityClass;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.JoinConfiguration;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Arrays;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * @author BestBearr
  * Created on 06/06/23
  */
 @UtilityClass
+@ApiStatus.Internal
 public final class Components {
-
-    @Setter
-    private static MessageConfig messageConfig;
-
     @NotNull
     public static Component reset() {
         Style.Builder style = Style.style().color(TextColor.color(-1));

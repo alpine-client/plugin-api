@@ -4,6 +4,7 @@ import com.alpineclient.plugin.Reference;
 import lombok.experimental.UtilityClass;
 import net.kyori.adventure.text.Component;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -14,6 +15,7 @@ import java.text.DecimalFormat;
  * Created on 07/06/23
  */
 @UtilityClass
+@ApiStatus.Internal
 public final class Formatting {
 
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
