@@ -93,7 +93,7 @@ public final class AlpinePlayer {
     /**
      * Requests the player delete a waypoint with a given UUID.
      *
-     * @param id the waypoint to send
+     * @param id the waypoint to delete
      *
      * @since 1.2.1
      */
