@@ -20,7 +20,6 @@ import java.nio.file.Path;
 public final class MessageConfig extends AbstractConfig {
 
     {
-        Components.setMessageConfig(this);
         ConfigMessage.setConfig(this);
     }
 

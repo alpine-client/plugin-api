@@ -5,10 +5,7 @@ import com.alpineclient.plugin.config.ConfigManager;
 import com.alpineclient.plugin.config.impl.GeneralConfig;
 import com.alpineclient.plugin.listener.plugin.PlayListener;
 import com.alpineclient.plugin.network.Packet;
-import com.alpineclient.plugin.network.packet.PacketModules;
-import com.alpineclient.plugin.network.packet.PacketNotificationAdd;
-import com.alpineclient.plugin.network.packet.PacketWaypointAdd;
-import com.alpineclient.plugin.network.packet.PacketWorldUpdate;
+import com.alpineclient.plugin.network.packet.*;
 import com.alpineclient.plugin.util.object.HandshakeData;
 import lombok.Getter;
 import org.bukkit.entity.Player;
@@ -16,6 +13,7 @@ import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Holds data about an Alpine Client user and provides methods
@@ -89,6 +87,18 @@ public final class AlpinePlayer {
      */
     public void sendWaypoint(@NotNull Waypoint waypoint) {
         PacketWaypointAdd packet = new PacketWaypointAdd(waypoint);
+        this.sendPacket(packet);
+    }
+
+    /**
+     * Requests the player delete a waypoint with a given UUID.
+     *
+     * @param id the waypoint to delete
+     *
+     * @since 1.2.1
+     */
+    public void deleteWaypoint(@NotNull UUID id) {
+        PacketWaypointRemove packet = new PacketWaypointRemove(id);
         this.sendPacket(packet);
     }
 

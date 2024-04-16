@@ -1,10 +1,7 @@
 package com.alpineclient.plugin.network;
 
 import com.alpineclient.plugin.Reference;
-import com.alpineclient.plugin.network.packet.PacketModules;
-import com.alpineclient.plugin.network.packet.PacketNotificationAdd;
-import com.alpineclient.plugin.network.packet.PacketWaypointAdd;
-import com.alpineclient.plugin.network.packet.PacketWorldUpdate;
+import com.alpineclient.plugin.network.packet.*;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -100,6 +97,7 @@ public abstract class Packet {
         /* Shared */
         addPacket(0xA7, PacketNotificationAdd.class);
         addPacket(0xA9, PacketWaypointAdd.class);
+        addPacket(0xA10, PacketWaypointRemove.class);
 
         /* Plugin API */
         addPacket(0xB0, PacketModules.class);
