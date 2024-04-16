@@ -16,7 +16,6 @@ import dev.rollczi.litecommands.bukkit.LiteBukkitSettings;
 import dev.rollczi.litecommands.message.LiteMessages;
 import dev.rollczi.litecommands.schematic.SchematicFormat;
 import lombok.Getter;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.ApiStatus;
@@ -110,8 +109,8 @@ public final class Plugin extends JavaPlugin {
                     Constructor<? extends PluginListener> constructor = ((Class<? extends PluginListener>) clazz).getDeclaredConstructor();
                     constructor.setAccessible(true);
                     PluginListener listener = constructor.newInstance();
-                    Bukkit.getMessenger().registerOutgoingPluginChannel(this, listener.getChannelId());
-                    Bukkit.getMessenger().registerIncomingPluginChannel(this, listener.getChannelId(), listener);
+                    this.getServer().getMessenger().registerOutgoingPluginChannel(this, listener.getChannelId());
+                    this.getServer().getMessenger().registerIncomingPluginChannel(this, listener.getChannelId(), listener);
                 }
             }
             catch (Exception ex) {
