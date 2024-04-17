@@ -89,7 +89,7 @@ tasks.withType<ShadowJar> {
 
     // Relocate dependencies
     val root = "com.alpineclient.dependencies"
-    relocate("co.aikar", "$root.co.aikar")
+    relocate("dev.rollczi", "$root.dev.rollczi")
     relocate("de.exlll", "$root.de.exlll")
     relocate("net.md_5", "$root.net.md_5")
 
