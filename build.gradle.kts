@@ -5,8 +5,8 @@ import java.util.*
 plugins {
     id("java-library")
     id("maven-publish")
-    id("net.kyori.blossom") version "1.2.0"
-    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("net.kyori.blossom") version "1.3.1"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = this.compileGroup()
@@ -89,9 +89,11 @@ tasks.withType<ShadowJar> {
 
     // Relocate dependencies
     val root = "com.alpineclient.dependencies"
-    relocate("dev.rollczi", "$root.dev.rollczi")
-    relocate("de.exlll", "$root.de.exlll")
-    relocate("net.md_5", "$root.net.md_5")
+    relocate("dev", "$root.dev")
+    relocate("de", "$root.de")
+    relocate("net", "$root.net")
+    relocate("org", "$root.org")
+    relocate("panda", "$root.panda")
 
     // Add shaded dependencies
     configurations.clear()
