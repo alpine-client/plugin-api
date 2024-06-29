@@ -1,6 +1,5 @@
 package com.alpineclient.plugin.command;
 
-import com.alpineclient.plugin.Plugin;
 import com.alpineclient.plugin.api.objects.AlpinePlayer;
 import com.alpineclient.plugin.config.AbstractConfig;
 import com.alpineclient.plugin.framework.BaseCommand;
@@ -25,7 +24,7 @@ import org.bukkit.entity.Player;
 public final class CommandCheck extends BaseCommand {
     @Execute
     public void execute(@Context CommandSender sender, @Arg("target") Player player) {
-        AlpinePlayer alpinePlayer = Plugin.getInstance().getPlayerHandler().getConnectedPlayer(player);
+        AlpinePlayer alpinePlayer = this.plugin.getPlayerHandler().getConnectedPlayer(player);
         boolean connected = alpinePlayer != null;
         String text = connected ? " is " : " is not ";
         TextColor color = connected ? AbstractConfig.PRIMARY_COLOR : AbstractConfig.PRIMARY_ERROR_COLOR;

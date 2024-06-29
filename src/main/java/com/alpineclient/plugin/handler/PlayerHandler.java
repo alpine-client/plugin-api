@@ -1,4 +1,4 @@
-package com.alpineclient.plugin;
+package com.alpineclient.plugin.handler;
 
 import com.alpineclient.plugin.api.event.ClientHandshakeEvent;
 import com.alpineclient.plugin.api.objects.AlpinePlayer;

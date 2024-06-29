@@ -1,6 +1,5 @@
 package com.alpineclient.plugin.listener.event;
 
-import com.alpineclient.plugin.Plugin;
 import com.alpineclient.plugin.api.event.ClientHandshakeEvent;
 import com.alpineclient.plugin.api.objects.AlpinePlayer;
 import com.alpineclient.plugin.framework.EventListener;
@@ -20,7 +19,7 @@ public final class WorldListener extends EventListener {
 
     @EventHandler
     private void onPlayerChangeWorld(PlayerChangedWorldEvent event) {
-        AlpinePlayer player = Plugin.getInstance().getPlayerHandler().getConnectedPlayer(event.getPlayer());
+        AlpinePlayer player = this.plugin.getPlayerHandler().getConnectedPlayer(event.getPlayer());
         if (player != null) {
             player.sendWorldUpdate();
         }

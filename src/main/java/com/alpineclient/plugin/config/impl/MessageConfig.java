@@ -18,7 +18,6 @@ import java.nio.file.Path;
  */
 @NoArgsConstructor
 public final class MessageConfig extends AbstractConfig {
-
     {
         ConfigMessage.setConfig(this);
     }

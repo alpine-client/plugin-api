@@ -1,6 +1,5 @@
 package com.alpineclient.plugin.listener.event;
 
-import com.alpineclient.plugin.Plugin;
 import com.alpineclient.plugin.api.event.ClientDisconnectEvent;
 import com.alpineclient.plugin.api.objects.AlpinePlayer;
 import com.alpineclient.plugin.framework.EventListener;
@@ -18,9 +17,9 @@ public final class PlayerRemoveListener extends EventListener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         UUID id = event.getPlayer().getUniqueId();
-        if (Plugin.getInstance().getPlayerHandler().isPlayerConnected(id)) {
-            AlpinePlayer player = Plugin.getInstance().getPlayerHandler().getConnectedPlayer(id);
-            Plugin.getInstance().getPlayerHandler().removeConnectedPlayer(id);
+        if (this.plugin.getPlayerHandler().isPlayerConnected(id)) {
+            AlpinePlayer player = this.plugin.getPlayerHandler().getConnectedPlayer(id);
+            this.plugin.getPlayerHandler().removeConnectedPlayer(id);
             Bukkit.getPluginManager().callEvent(new ClientDisconnectEvent(player));
         }
     }

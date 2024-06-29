@@ -1,5 +1,6 @@
 package com.alpineclient.plugin.framework;
 
+import com.alpineclient.plugin.Plugin;
 import com.alpineclient.plugin.Reference;
 import lombok.Getter;
 import org.bukkit.entity.Player;
@@ -13,6 +14,8 @@ import org.jetbrains.annotations.NotNull;
 public abstract class PluginListener implements PluginMessageListener {
     @Getter
     private final String channelId;
+
+    protected final Plugin plugin = Plugin.getInstance();
 
     protected PluginListener(String channelId) {
         this.channelId = channelId;

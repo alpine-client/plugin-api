@@ -86,7 +86,6 @@ public final class ConfigMessage {
     }
 
     public static final class Builder {
-
         private String message;
 
         private MessageType type = MessageType.NORMAL;

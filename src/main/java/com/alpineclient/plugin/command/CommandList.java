@@ -1,6 +1,5 @@
 package com.alpineclient.plugin.command;
 
-import com.alpineclient.plugin.Plugin;
 import com.alpineclient.plugin.framework.BaseCommand;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
@@ -19,7 +18,7 @@ import java.util.stream.Collectors;
 public final class CommandList extends BaseCommand {
     @Execute
     public void execute(@Context CommandSender sender) {
-        List<String> playerNames = Plugin.getInstance().getPlayerHandler().getConnectedPlayers().stream()
+        List<String> playerNames = this.plugin.getPlayerHandler().getConnectedPlayers().stream()
                 .map(player -> player == null ? null : player.getBukkitPlayer().getName())
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());

@@ -5,6 +5,7 @@ import com.alpineclient.plugin.config.ConfigManager;
 import com.alpineclient.plugin.config.impl.MessageConfig;
 import com.alpineclient.plugin.framework.EventListener;
 import com.alpineclient.plugin.framework.PluginListener;
+import com.alpineclient.plugin.handler.PlayerHandler;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import dev.rollczi.litecommands.LiteCommands;

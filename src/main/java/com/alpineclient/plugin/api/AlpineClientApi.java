@@ -3,9 +3,7 @@ package com.alpineclient.plugin.api;
 import com.alpineclient.plugin.Plugin;
 import com.alpineclient.plugin.api.objects.AlpinePlayer;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -18,6 +16,8 @@ import java.util.UUID;
  * @since 1.0.0
  */
 public final class AlpineClientApi {
+    private static final Plugin plugin = Plugin.getInstance();
+
     /**
      * Fake constructor to stop attempted instantiation.
      */
@@ -55,7 +55,7 @@ public final class AlpineClientApi {
      * @return true if the player is using Alpine Client
      */
     public static boolean isPlayerConnected(@NotNull UUID id) {
-        return Plugin.getInstance().getPlayerHandler().isPlayerConnected(id);
+        return plugin.getPlayerHandler().isPlayerConnected(id);
     }
 
     /**
@@ -68,7 +68,7 @@ public final class AlpineClientApi {
      * @since 1.1.2
      */
     public static @NotNull Optional<AlpinePlayer> getPlayer(@NotNull Player player) {
-        return Optional.ofNullable(Plugin.getInstance().getPlayerHandler().getConnectedPlayer(player));
+        return Optional.ofNullable(plugin.getPlayerHandler().getConnectedPlayer(player));
     }
 
     /**
@@ -81,7 +81,7 @@ public final class AlpineClientApi {
      * @since 1.1.2
      */
     public static @NotNull Optional<AlpinePlayer> getPlayer(@NotNull UUID id) {
-        return Optional.ofNullable(Plugin.getInstance().getPlayerHandler().getConnectedPlayer(id));
+        return Optional.ofNullable(plugin.getPlayerHandler().getConnectedPlayer(id));
     }
 
     /**
@@ -92,6 +92,6 @@ public final class AlpineClientApi {
      * @since 1.1.2
      */
     public static @NotNull Collection<AlpinePlayer> getAllPlayers() {
-        return Plugin.getInstance().getPlayerHandler().getConnectedPlayers();
+        return plugin.getPlayerHandler().getConnectedPlayers();
     }
 }

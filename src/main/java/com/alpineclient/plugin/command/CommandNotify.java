@@ -1,6 +1,5 @@
 package com.alpineclient.plugin.command;
 
-import com.alpineclient.plugin.Plugin;
 import com.alpineclient.plugin.api.objects.AlpinePlayer;
 import com.alpineclient.plugin.api.objects.Notification;
 import com.alpineclient.plugin.framework.BaseCommand;
@@ -23,7 +22,7 @@ import org.bukkit.entity.Player;
 public final class CommandNotify extends BaseCommand {
     @Execute
     public void execute(@Context CommandSender sender, @Arg("target") Player player, @Arg("content") String content) {
-        AlpinePlayer alpinePlayer = Plugin.getInstance().getPlayerHandler().getConnectedPlayer(player);
+        AlpinePlayer alpinePlayer = this.plugin.getPlayerHandler().getConnectedPlayer(player);
         if (alpinePlayer != null) {
             Notification notification = Notification.builder().description(content).build();
             alpinePlayer.sendNotification(notification);

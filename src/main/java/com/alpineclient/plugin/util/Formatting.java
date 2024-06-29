@@ -17,7 +17,6 @@ import java.text.DecimalFormat;
 @UtilityClass
 @ApiStatus.Internal
 public final class Formatting {
-
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
 
     /**

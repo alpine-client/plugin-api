@@ -19,7 +19,6 @@ import java.util.Map;
  * Created on 27/09/2021
  */
 public abstract class Packet {
-
     private static final Map<Class<? extends Packet>, Integer> CLASS_TO_ID;
     private static final Map<Integer, Class<? extends Packet>> ID_TO_CLASS;
 
