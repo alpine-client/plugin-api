@@ -32,6 +32,11 @@ public final class ClientDisconnectEvent extends Event {
         return HANDLERS;
     }
 
+    /**
+     * Get the player which this event pertains to.
+     *
+     * @return the {@link com.alpineclient.plugin.api.objects.AlpinePlayer}
+     */
     public @NotNull AlpinePlayer getPlayer() {
         return this.player;
     }

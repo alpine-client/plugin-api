@@ -33,9 +33,9 @@ public final class ClientHandshakeEvent extends Event {
     }
 
     /**
-     * Get the player this event was called for.
+     * Get the player which this event pertains to.
      *
-     * @return
+     * @return the {@link com.alpineclient.plugin.api.objects.AlpinePlayer}
      */
     public @NotNull AlpinePlayer getPlayer() {
         return this.player;

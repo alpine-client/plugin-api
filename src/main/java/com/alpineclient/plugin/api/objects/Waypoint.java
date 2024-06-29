@@ -47,26 +47,56 @@ public final class Waypoint {
         this.duration = duration;
     }
 
+    /**
+     * Get the unique ID of the waypoint.
+     *
+     * @return the {@link java.util.UUID}
+     */
     public @NotNull UUID getId() {
         return this.id;
     }
 
+    /**
+     * Get the name of the waypoint.
+     *
+     * @return the name
+     */
     public @NotNull String getName() {
         return this.name;
     }
 
+    /**
+     * Get the position of the waypoint.
+     *
+     * @return the position
+     */
     public @NotNull Location getPos() {
         return this.pos;
     }
 
+    /**
+     * Get the color of the waypoint.
+     *
+     * @return the name
+     */
     public int getColor() {
         return this.color;
     }
 
+    /**
+     * Get the name of the world that the waypoint is in.
+     *
+     * @return the name of the world
+     */
     public @NotNull String getWorld() {
         return this.world;
     }
 
+    /**
+     * Get the duration of the waypoint in milliseconds.
+     *
+     * @return the duration in milliseconds
+     */
     public long getDuration() {
         return this.duration;
     }

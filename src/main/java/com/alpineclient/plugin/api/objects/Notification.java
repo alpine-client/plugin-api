@@ -36,22 +36,47 @@ public final class Notification {
         this.texture = texture;
     }
 
+    /**
+     * Get the title of the notification.
+     *
+     * @return the title
+     */
     public @Nullable String getTitle() {
         return this.title;
     }
 
+    /**
+     * Get the description of the notification.
+     *
+     * @return the description
+     */
     public @NotNull String getDescription() {
         return this.description;
     }
 
+    /**
+     * Get the color of the notification.
+     *
+     * @return the color
+     */
     public int getColor() {
         return this.color;
     }
 
+    /**
+     * Get the duration of the notification in milliseconds.
+     *
+     * @return the duration in milliseconds
+     */
     public long getDuration() {
         return this.duration;
     }
 
+    /**
+     * Get the texture of the notification.
+     *
+     * @return the {@link com.alpineclient.plugin.api.objects.ClientResource}
+     */
     public @Nullable ClientResource getTexture() {
         return this.texture;
     }

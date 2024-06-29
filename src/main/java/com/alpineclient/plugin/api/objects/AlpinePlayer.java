@@ -23,27 +23,9 @@ import java.util.UUID;
  * @since 1.0.0
  */
 public final class AlpinePlayer {
-    /**
-     * The underlying Bukkit player object.
-     */
     private final Player bukkitPlayer;
-
-    /**
-     * The mod platform the user is on.<p>
-     * e.g. {@code fabric}, {@code forge}
-     */
     private final String platform;
-
-    /**
-     * The Minecraft version the user is on.<p>
-     * e.g. {@code 1.8.9}, {@code 1.20}
-     */
     private final String version;
-
-    /**
-     * A list containing all the user's loaded mod IDs.<p>
-     * e.g. {@code ["sodium", "lithium", "alpineclient"]}
-     */
     private final List<String> mods;
 
     @ApiStatus.Internal
@@ -59,25 +41,52 @@ public final class AlpinePlayer {
         this.mods = mods;
     }
 
+    /**
+     * Get the underlying Bukkit player object.
+     *
+     * @return the {@link org.bukkit.entity.Player}
+     */
     public @NotNull Player getBukkitPlayer() {
         return this.bukkitPlayer;
     }
 
+    /**
+     * Get the mod platform the user is on.
+     * <p>
+     * e.g. {@code fabric}, {@code forge}
+     *
+     * @return the mod platform
+     */
     public @NotNull String getPlatform() {
         return this.platform;
     }
 
+    /**
+     * Get the Minecraft version the user is on.
+     * <p>
+     * e.g. {@code 1.8.9}, {@code 1.20}
+     *
+     * @return the Minecraft version
+     */
     public @NotNull String getVersion() {
         return this.version;
     }
 
+    /**
+     * Get all the user's loaded mod IDs.
+     * <p>
+     * e.g. {@code ["sodium", "lithium", "alpineclient"]}
+     *
+     * @return a list containing mod IDs
+     */
     public @NotNull List<String> getMods() {
         return Collections.unmodifiableList(this.mods);
     }
 
     /**
      * Get the full client brand consisting of their version
-     * and platform.<p>
+     * and platform.
+     * <p>
      * e.g. {@code 1.20-fabric}
      *
      * @return the client brand

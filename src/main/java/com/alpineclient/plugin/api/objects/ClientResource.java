@@ -19,10 +19,23 @@ public final class ClientResource {
         this.value = value;
     }
 
+    /**
+     * Get the type of the resource.
+     *
+     * @return the {@link com.alpineclient.plugin.api.objects.ClientResource.Type}
+     */
     public @NotNull Type getType() {
         return this.type;
     }
 
+    /**
+     * Get the value of the resource.
+     * <p>
+     * For {@link com.alpineclient.plugin.api.objects.ClientResource.Type#INTERNAL} this is a path,
+     * for {@link com.alpineclient.plugin.api.objects.ClientResource.Type#EXTERNAL} this is a URL.
+     *
+     * @return the {@link com.alpineclient.plugin.api.objects.ClientResource.Type}
+     */
     public @NotNull String getValue() {
         return this.value;
     }

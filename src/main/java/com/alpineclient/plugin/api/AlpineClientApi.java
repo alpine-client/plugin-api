@@ -30,7 +30,7 @@ public final class AlpineClientApi {
      *
      * @param player the {@link com.alpineclient.plugin.api.objects.AlpinePlayer}
      *
-     * @return true if the player is using Alpine Client
+     * @return {@code true} if the player is using Alpine Client
      */
     public static boolean isPlayerConnected(@NotNull AlpinePlayer player) {
         return isPlayerConnected(player.getBukkitPlayer().getUniqueId());
@@ -41,7 +41,7 @@ public final class AlpineClientApi {
      *
      * @param player the {@link org.bukkit.entity.Player}
      *
-     * @return true if the player is using Alpine Client
+     * @return {@code true} if the player is using Alpine Client
      */
     public static boolean isPlayerConnected(@NotNull Player player) {
         return isPlayerConnected(player.getUniqueId());
@@ -52,7 +52,7 @@ public final class AlpineClientApi {
      *
      * @param id the {@link java.util.UUID} of the players account
      *
-     * @return true if the player is using Alpine Client
+     * @return {@code true} if the player is using Alpine Client
      */
     public static boolean isPlayerConnected(@NotNull UUID id) {
         return plugin.getPlayerHandler().isPlayerConnected(id);
@@ -87,7 +87,7 @@ public final class AlpineClientApi {
     /**
      * Get all players connected via Alpine Client.
      *
-     * @return A list containing {@link com.alpineclient.plugin.api.objects.AlpinePlayer}
+     * @return a list containing {@link com.alpineclient.plugin.api.objects.AlpinePlayer}
      *
      * @since 1.1.2
      */
