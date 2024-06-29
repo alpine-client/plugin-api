@@ -81,7 +81,7 @@ public final class Plugin extends JavaPlugin {
         return builder.build();
     }
 
-    @SuppressWarnings("UnstableApiUsage")
+    @SuppressWarnings({"UnstableApiUsage", "unchecked"})
     private void registerAll() {
         String packageName = this.getClass().getPackage().getName();
         Set<Class<?>> clazzes = ImmutableSet.of();
@@ -114,7 +114,7 @@ public final class Plugin extends JavaPlugin {
                 }
             }
             catch (Exception ex) {
-                Reference.LOGGER.error("Failed to register " + clazz.getName(), ex);
+                Reference.LOGGER.error("Failed to register {}", clazz.getName(), ex);
             }
         }
     }
