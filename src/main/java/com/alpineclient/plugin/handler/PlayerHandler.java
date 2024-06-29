@@ -9,10 +9,7 @@ import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author Thomas Wearmouth
@@ -49,6 +46,6 @@ public final class PlayerHandler {
     }
 
     public @NotNull Collection<AlpinePlayer> getConnectedPlayers() {
-        return this.connectedPlayers.values();
+        return Collections.unmodifiableCollection(this.connectedPlayers.values());
     }
 }
