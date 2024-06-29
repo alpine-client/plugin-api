@@ -34,11 +34,11 @@ dependencies {
     depend(this, "de.exlll:configlib-spigot:4.2.0")
     depend(this, "org.msgpack:msgpack-core:0.9.8")
 
-    val liteCommands = "3.4.1"
+    val liteCommands = "3.4.2"
     depend(this, "dev.rollczi:litecommands-bukkit:${liteCommands}")
     depend(this, "dev.rollczi:litecommands-adventure-platform:${liteCommands}")
 
-    val adventure = "4.16.0"
+    val adventure = "4.17.0"
     depend(this, "net.kyori:adventure-platform-bukkit:4.3.2")
     depend(this, "net.kyori:adventure-api:${adventure}")
     depend(this, "net.kyori:adventure-text-minimessage:${adventure}")
