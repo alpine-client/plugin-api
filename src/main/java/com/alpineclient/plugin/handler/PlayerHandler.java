@@ -10,9 +10,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Thomas Wearmouth
@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @ApiStatus.Internal
 public final class PlayerHandler {
-    private final Map<UUID, AlpinePlayer> connectedPlayers = new ConcurrentHashMap<>();
+    private final Map<UUID, AlpinePlayer> connectedPlayers = new HashMap<>();
 
     public boolean addConnectedPlayer(@NotNull Player player, @NotNull HandshakeData data) {
         UUID id = player.getUniqueId();
