@@ -7,11 +7,11 @@ import com.alpineclient.plugin.listener.plugin.PlayListener;
 import com.alpineclient.plugin.network.Packet;
 import com.alpineclient.plugin.network.packet.*;
 import com.alpineclient.plugin.util.object.HandshakeData;
-import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,37 +26,53 @@ public final class AlpinePlayer {
     /**
      * The underlying Bukkit player object.
      */
-    @Getter private final Player bukkitPlayer;
+    private final Player bukkitPlayer;
 
     /**
      * The mod platform the user is on.<p>
      * e.g. {@code fabric}, {@code forge}
      */
-    @Getter private final String platform;
+    private final String platform;
 
     /**
      * The Minecraft version the user is on.<p>
      * e.g. {@code 1.8.9}, {@code 1.20}
      */
-    @Getter private final String version;
+    private final String version;
 
     /**
      * A list containing all the user's loaded mod IDs.<p>
      * e.g. {@code ["sodium", "lithium", "alpineclient"]}
      */
-    @Getter private final List<String> mods;
+    private final List<String> mods;
 
     @ApiStatus.Internal
-    public AlpinePlayer(Player bukkitPlayer, HandshakeData data) {
+    public AlpinePlayer(@NotNull Player bukkitPlayer, @NotNull HandshakeData data) {
         this(bukkitPlayer, data.getPlatform(), data.getVersion(), data.getMods());
     }
 
     @ApiStatus.Internal
-    public AlpinePlayer(Player bukkitPlayer, String platform, String version, List<String> mods) {
+    public AlpinePlayer(@NotNull Player bukkitPlayer, @NotNull String platform, @NotNull String version, @NotNull List<String> mods) {
         this.bukkitPlayer = bukkitPlayer;
         this.platform = platform;
         this.version = version;
         this.mods = mods;
+    }
+
+    public @NotNull Player getBukkitPlayer() {
+        return this.bukkitPlayer;
+    }
+
+    public @NotNull String getPlatform() {
+        return this.platform;
+    }
+
+    public @NotNull String getVersion() {
+        return this.version;
+    }
+
+    public @NotNull List<String> getMods() {
+        return Collections.unmodifiableList(this.mods);
     }
 
     /**

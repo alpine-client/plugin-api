@@ -1,11 +1,10 @@
 package com.alpineclient.plugin.api.objects;
 
 import com.google.common.base.Preconditions;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Objects;
 
 /**
  * Represents an object that displays a toast popup on the user's screen.
@@ -13,8 +12,6 @@ import org.jetbrains.annotations.Nullable;
  * @author BestBearr
  * @since 1.0.0
  */
-@Getter
-@ToString @EqualsAndHashCode
 public final class Notification {
     /**
      * The default color used in {@link Builder}.
@@ -37,6 +34,59 @@ public final class Notification {
         this.color = color;
         this.duration = duration;
         this.texture = texture;
+    }
+
+    public @Nullable String getTitle() {
+        return this.title;
+    }
+
+    public @NotNull String getDescription() {
+        return this.description;
+    }
+
+    public int getColor() {
+        return this.color;
+    }
+
+    public long getDuration() {
+        return this.duration;
+    }
+
+    public @Nullable ClientResource getTexture() {
+        return this.texture;
+    }
+
+    @Override
+    public @NotNull String toString() {
+        return String.format(
+                "Notification{title=%s, description=%s, color=%d, duration=%d, texture=%s}",
+                this.title, this.description, this.color, this.duration, Objects.toString(this.texture)
+        );
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (this.getClass() != obj.getClass())
+            return false;
+
+        Notification other = (Notification) obj;
+        return Objects.equals(this.title, other.getTitle()) && Objects.equals(this.description, other.getDescription())
+                && this.color == other.getColor() && this.duration == other.getDuration()
+                && Objects.equals(this.texture, other.getTexture());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hashCode(title);
+        result = 31 * result + description.hashCode();
+        result = 31 * result + color;
+        result = 31 * result + Long.hashCode(duration);
+        result = 31 * result + Objects.hashCode(texture);
+        return result;
     }
 
     /**

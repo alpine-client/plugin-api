@@ -1,7 +1,6 @@
 package com.alpineclient.plugin.api.util;
 
 import com.alpineclient.plugin.api.objects.ClientResource;
-import lombok.experimental.UtilityClass;
 
 /**
  * Contains some useful icons that can be used in notifications
@@ -10,8 +9,14 @@ import lombok.experimental.UtilityClass;
  * @author Thomas Wearmouth
  * @since 1.0.0
  */
-@UtilityClass
 public final class Resources {
+    /**
+     * Fake constructor to stop attempted instantiation.
+     */
+    private Resources() throws UnsupportedOperationException {
+        throw new UnsupportedOperationException("This is a static utility class and cannot be instantiated");
+    }
+
     // Status
     /**
      * A white, rounded plus sign from Material Icons.

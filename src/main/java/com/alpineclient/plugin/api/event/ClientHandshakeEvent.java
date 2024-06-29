@@ -1,7 +1,6 @@
 package com.alpineclient.plugin.api.event;
 
 import com.alpineclient.plugin.api.objects.AlpinePlayer;
-import lombok.Getter;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.ApiStatus;
@@ -16,10 +15,10 @@ import org.jetbrains.annotations.NotNull;
 public final class ClientHandshakeEvent extends Event {
     private static final HandlerList HANDLERS = new HandlerList();
 
-    @Getter private final AlpinePlayer player;
+    private final AlpinePlayer player;
 
     @ApiStatus.Internal
-    public ClientHandshakeEvent(AlpinePlayer player) {
+    public ClientHandshakeEvent(@NotNull AlpinePlayer player) {
         this.player = player;
     }
 
@@ -31,5 +30,14 @@ public final class ClientHandshakeEvent extends Event {
     @ApiStatus.Internal
     public static @NotNull HandlerList getHandlerList() {
         return HANDLERS;
+    }
+
+    /**
+     * Get the player this event was called for.
+     *
+     * @return
+     */
+    public @NotNull AlpinePlayer getPlayer() {
+        return this.player;
     }
 }

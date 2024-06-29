@@ -1,9 +1,6 @@
 package com.alpineclient.plugin.api.objects;
 
 import com.google.common.base.Preconditions;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.jetbrains.annotations.NotNull;
@@ -17,8 +14,6 @@ import java.util.UUID;
  * @author Thomas Wearmouth
  * @since 1.0.0
  */
-@Getter
-@ToString @EqualsAndHashCode
 public final class Waypoint {
     /**
      * The default color used in {@link Builder}.
@@ -50,6 +45,58 @@ public final class Waypoint {
         this.color = color;
         this.world = world;
         this.duration = duration;
+    }
+
+    public @NotNull UUID getId() {
+        return this.id;
+    }
+
+    public @NotNull String getName() {
+        return this.name;
+    }
+
+    public @NotNull Location getPos() {
+        return this.pos;
+    }
+
+    public int getColor() {
+        return this.color;
+    }
+
+    public @NotNull String getWorld() {
+        return this.world;
+    }
+
+    public long getDuration() {
+        return this.duration;
+    }
+
+    @Override
+    public @NotNull String toString() {
+        return String.format(
+                "Waypoint{id=%s, name=%s, pos=[%d, %d, %d], color=%d, world=%s, duration=%d}",
+                this.id, this.name,
+                this.pos.getBlockX(), this.pos.getBlockY(), this.pos.getBlockZ(),
+                this.color, this.world, this.duration
+        );
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (this.getClass() != obj.getClass())
+            return false;
+
+        Waypoint other = (Waypoint) obj;
+        return this.id.equals(other.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.id.hashCode();
     }
 
     /**
