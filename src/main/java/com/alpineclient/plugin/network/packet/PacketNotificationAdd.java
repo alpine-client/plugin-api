@@ -33,14 +33,8 @@ public final class PacketNotificationAdd extends Packet {
         packer.packLong(this.notification.getDuration());
 
         ClientResource texture = this.notification.getTexture();
-        if (texture == null) {
-            packer.packBoolean(false);
-        }
-        else {
-            packer.packBoolean(true);
-            packer.packBoolean(texture.getType() == ClientResource.Type.INTERNAL);
-            packer.packString(texture.getValue());
-        }
+        packer.packBoolean(texture.getType() == ClientResource.Type.INTERNAL);
+        packer.packString(texture.getValue());
     }
 
     @Override

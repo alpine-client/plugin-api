@@ -1,5 +1,6 @@
 package com.alpineclient.plugin.api.objects;
 
+import com.alpineclient.plugin.api.util.Resources;
 import com.google.common.base.Preconditions;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -22,6 +23,12 @@ public final class Notification {
      * The default display duration used in {@link Notification.Builder}.
      */
     public static final long DEFAULT_DISPLAY_DURATION = 5000L;
+    /**
+     * The default display icon used in {@link Notification.Builder}.
+     *
+     * @since 1.3.0
+     */
+    public static final ClientResource DEFAULT_TEXTURE = Resources.LETTER_A_LOGO;
 
     private final String title;
     private final String description;
@@ -29,7 +36,7 @@ public final class Notification {
     private final long duration;
     private final ClientResource texture;
 
-    private Notification(@Nullable String title, @NotNull String description, int color, long duration, @Nullable ClientResource texture) {
+    private Notification(@Nullable String title, @NotNull String description, int color, long duration, @NotNull ClientResource texture) {
         this.title = title;
         this.description = description;
         this.color = color;
@@ -78,7 +85,7 @@ public final class Notification {
      *
      * @return the {@link ClientResource}
      */
-    public @Nullable ClientResource getTexture() {
+    public @NotNull ClientResource getTexture() {
         return this.texture;
     }
 
@@ -107,11 +114,11 @@ public final class Notification {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(title);
-        result = 31 * result + description.hashCode();
-        result = 31 * result + color;
-        result = 31 * result + Long.hashCode(duration);
-        result = 31 * result + Objects.hashCode(texture);
+        int result = Objects.hashCode(this.title);
+        result = 31 * result + this.description.hashCode();
+        result = 31 * result + this.color;
+        result = 31 * result + Long.hashCode(this.duration);
+        result = 31 * result + Objects.hashCode(this.texture);
         return result;
     }
 
@@ -131,8 +138,8 @@ public final class Notification {
         private String title = null;
         private String description;
         private int color = Notification.DEFAULT_COLOR;
-        private long duration = DEFAULT_DISPLAY_DURATION;
-        private ClientResource texture = null;
+        private long duration = Notification.DEFAULT_DISPLAY_DURATION;
+        private ClientResource texture = Notification.DEFAULT_TEXTURE;
 
         /**
          * Sets the title to be built into the {@link Notification}.
@@ -168,6 +175,18 @@ public final class Notification {
         }
 
         /**
+         * Sets the color to be built into the {@link Notification}.
+         *
+         * @param color the color
+         * @return the builder
+         *
+         * @since 1.3.0
+         */
+        public @NotNull Builder color(@NotNull Color color) {
+            return this.color(color.getRGB());
+        }
+
+        /**
          * Sets the duration to be built into the {@link Notification}.
          *
          * @param duration the duration
@@ -196,6 +215,7 @@ public final class Notification {
          */
         public @NotNull Notification build() {
             Preconditions.checkNotNull(this.description);
+            Preconditions.checkNotNull(this.texture);
             return new Notification(this.title, this.description, this.color, this.duration, this.texture);
         }
     }
