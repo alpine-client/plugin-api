@@ -4,6 +4,7 @@ import com.alpineclient.plugin.api.objects.ClientResource;
 import com.alpineclient.plugin.api.objects.Cooldown;
 import com.alpineclient.plugin.network.Packet;
 import com.alpineclient.plugin.network.WriteOnly;
+import com.alpineclient.plugin.util.MsgPackUtils;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.msgpack.core.MessagePacker;
@@ -25,6 +26,7 @@ public final class PacketCooldownAdd extends Packet {
 
     @Override
     public void write(@NotNull MessagePacker packer) throws IOException {
+        MsgPackUtils.packUuid(packer, this.cooldown.getId());
         packer.packString(this.cooldown.getName());
         packer.packInt(this.cooldown.getColor());
         packer.packLong(this.cooldown.getDuration());

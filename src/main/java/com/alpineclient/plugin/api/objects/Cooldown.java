@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Represents a location in the world that is highlighted to the user.
@@ -18,16 +19,27 @@ public final class Cooldown {
      */
     public static final int DEFAULT_COLOR = new Color(255, 255, 255, 255).getRGB();
 
+    private final UUID id;
     private final String name;
     private final int color;
     private final long duration;
     private final ClientResource texture;
 
-    private Cooldown(@NotNull String name, int color, long duration, @NotNull ClientResource texture) {
+    private Cooldown(@NotNull UUID id, @NotNull String name, int color, long duration, @NotNull ClientResource texture) {
+        this.id = id;
         this.name = name;
         this.color = color;
         this.duration = duration;
         this.texture = texture;
+    }
+
+    /**
+     * Get the name of the cooldown.
+     *
+     * @return the name
+     */
+    public @NotNull UUID getId() {
+        return this.id;
     }
 
     /**
@@ -69,8 +81,8 @@ public final class Cooldown {
     @Override
     public @NotNull String toString() {
         return String.format(
-                "Cooldown{name=%s, color=%d, duration=%d, texture=%s}",
-                this.name, this.color, this.duration, Objects.toString(this.texture)
+                "Cooldown{id=%s, name=%s, color=%d, duration=%d, texture=%s}",
+                this.id, this.name, this.color, this.duration, Objects.toString(this.texture)
         );
     }
 
@@ -84,16 +96,17 @@ public final class Cooldown {
             return false;
 
         Cooldown other = (Cooldown) obj;
-        return Objects.equals(this.name, other.getName()) && this.color == other.getColor()
+        return Objects.equals(this.id, other.getId()) && Objects.equals(this.name, other.getName()) && this.color == other.getColor()
                 && this.duration == other.getDuration() && Objects.equals(this.texture, other.getTexture());
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(this.name);
+        int result = this.id.hashCode();
+        result = 31 * result + this.name.hashCode();
         result = 31 * result + this.color;
         result = 31 * result + Long.hashCode(this.duration);
-        result = 31 * result + Objects.hashCode(this.texture);
+        result = 31 * result + this.texture.hashCode();
         return result;
     }
 
@@ -110,10 +123,22 @@ public final class Cooldown {
      * Builder for {@link Cooldown}.
      */
     public static class Builder {
+        private UUID id = UUID.randomUUID();
         private String name = null;
         private int color = Cooldown.DEFAULT_COLOR;
         private long duration = 0L;
         private ClientResource texture = null;
+
+        /**
+         * Sets the ID to be built into the {@link Cooldown}.
+         *
+         * @param id the ID
+         * @return the builder
+         */
+        public @NotNull Builder id(@NotNull UUID id) {
+            this.id = id;
+            return this;
+        }
 
         /**
          * Sets the name to be built into the {@link Cooldown}.
@@ -175,10 +200,11 @@ public final class Cooldown {
          * @return the built {@link Cooldown}
          */
         public @NotNull Cooldown build() {
+            Preconditions.checkNotNull(this.id);
             Preconditions.checkNotNull(this.name);
             Preconditions.checkNotNull(this.texture);
             Preconditions.checkState(this.duration >= 1L, "duration must be >= 1");
-            return new Cooldown(this.name, this.color, this.duration, this.texture);
+            return new Cooldown(this.id, this.name, this.color, this.duration, this.texture);
         }
     }
 }
