@@ -1,8 +1,7 @@
 package com.alpineclient.plugin.api.objects;
 
 import com.alpineclient.plugin.Plugin;
-import com.alpineclient.plugin.config.ConfigManager;
-import com.alpineclient.plugin.config.impl.GeneralConfig;
+import com.alpineclient.plugin.api.AlpineClientApi;
 import com.alpineclient.plugin.listener.plugin.PlayListener;
 import com.alpineclient.plugin.network.Packet;
 import com.alpineclient.plugin.network.packet.*;
@@ -124,6 +123,21 @@ public final class AlpinePlayer {
      */
     public void deleteWaypoint(@NotNull UUID id) {
         PacketWaypointRemove packet = new PacketWaypointRemove(id);
+        this.sendPacket(packet);
+    }
+
+    /**
+     * Sends a cooldown to this player.
+     * <p>
+     * If you intend to utilize the Cooldowns module, you must first declare
+     * the capability with {@link AlpineClientApi#registerCapability(Capability)}.
+     *
+     * @param cooldown the cooldown to send
+     *
+     * @since 1.3.0
+     */
+    public void sendCooldown(@NotNull Cooldown cooldown) {
+        PacketCooldownAdd packet = new PacketCooldownAdd(cooldown);
         this.sendPacket(packet);
     }
 

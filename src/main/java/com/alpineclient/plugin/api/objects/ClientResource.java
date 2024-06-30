@@ -60,8 +60,8 @@ public final class ClientResource {
 
     @Override
     public int hashCode() {
-        int result = type.hashCode();
-        result = 31 * result + value.hashCode();
+        int result = this.type.hashCode();
+        result = 31 * result + this.value.hashCode();
         return result;
     }
 

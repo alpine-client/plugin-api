@@ -144,9 +144,9 @@ public final class Waypoint {
     public static class Builder {
         private String name = null;
         private Location pos = null;
-        private int color = DEFAULT_COLOR;
-        private String world = DEFAULT_WORLD;
-        private long duration = DEFAULT_DURATION;
+        private int color = Waypoint.DEFAULT_COLOR;
+        private String world = Waypoint.DEFAULT_WORLD;
+        private long duration = Waypoint.DEFAULT_DURATION;
 
         /**
          * Sets the name to be built into the {@link Waypoint}.
@@ -180,6 +180,18 @@ public final class Waypoint {
         public @NotNull Builder color(int color) {
             this.color = color;
             return this;
+        }
+
+        /**
+         * Sets the color to be built into the {@link Waypoint}.
+         *
+         * @param color the color
+         * @return the builder
+         *
+         * @since 1.3.0
+         */
+        public @NotNull Builder color(@NotNull Color color) {
+            return this.color(color.getRGB());
         }
 
         /**
@@ -221,7 +233,7 @@ public final class Waypoint {
          * @return the builder
          */
         public @NotNull Builder infinite() {
-            this.duration = NO_DURATION;
+            this.duration = Waypoint.NO_DURATION;
             return this;
         }
 

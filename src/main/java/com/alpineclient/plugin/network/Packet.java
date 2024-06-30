@@ -102,5 +102,6 @@ public abstract class Packet {
         addPacket(0xB0, PacketModules.class);
         addPacket(0xB1, PacketWorldUpdate.class);
         addPacket(0xB2, PacketCapabilities.class);
+        addPacket(0xB3, PacketCooldownAdd.class);
     }
 }
