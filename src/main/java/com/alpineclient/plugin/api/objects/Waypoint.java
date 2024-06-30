@@ -134,8 +134,7 @@ public final class Waypoint {
      *
      * @return the builder
      */
-    @NotNull
-    public static Builder builder() {
+    public static @NotNull Builder builder() {
         return new Builder();
     }
 
@@ -155,8 +154,7 @@ public final class Waypoint {
          * @param name the name
          * @return the builder
          */
-        @NotNull
-        public Builder name(@NotNull String name) {
+        public @NotNull Builder name(@NotNull String name) {
             this.name = name;
             return this;
         }
@@ -167,8 +165,7 @@ public final class Waypoint {
          * @param pos the position
          * @return the builder
          */
-        @NotNull
-        public Builder pos(@NotNull Location pos) {
+        public @NotNull Builder pos(@NotNull Location pos) {
             this.pos = pos;
             return this;
         }
@@ -180,8 +177,7 @@ public final class Waypoint {
          * @param color the color
          * @return the builder
          */
-        @NotNull
-        public Builder color(int color) {
+        public @NotNull Builder color(int color) {
             this.color = color;
             return this;
         }
@@ -192,8 +188,7 @@ public final class Waypoint {
          * @param world the world name
          * @return the builder
          */
-        @NotNull
-        public Builder world(@NotNull String world) {
+        public @NotNull Builder world(@NotNull String world) {
             this.world = world;
             return this;
         }
@@ -204,8 +199,7 @@ public final class Waypoint {
          * @param worldObj the world object
          * @return the builder
          */
-        @NotNull
-        public Builder world(@NotNull World worldObj) {
+        public @NotNull Builder world(@NotNull World worldObj) {
             this.world = worldObj.getName();
             return this;
         }
@@ -216,8 +210,7 @@ public final class Waypoint {
          * @param duration the duration
          * @return the builder
          */
-        @NotNull
-        public Builder duration(long duration) {
+        public @NotNull Builder duration(long duration) {
             this.duration = duration;
             return this;
         }
@@ -227,8 +220,7 @@ public final class Waypoint {
          *
          * @return the builder
          */
-        @NotNull
-        public Builder infinite() {
+        public @NotNull Builder infinite() {
             this.duration = NO_DURATION;
             return this;
         }
@@ -238,8 +230,7 @@ public final class Waypoint {
          *
          * @return the built {@link Waypoint}
          */
-        @NotNull
-        public Waypoint build() {
+        public @NotNull Waypoint build() {
             Preconditions.checkNotNull(this.name);
             Preconditions.checkNotNull(this.pos);
             Preconditions.checkNotNull(this.world);

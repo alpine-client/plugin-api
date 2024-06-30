@@ -84,8 +84,7 @@ public final class ConfigManager {
         }
     }
 
-    @NotNull
-    public <T extends AbstractConfig> T getConfig(@NotNull Class<T> configClass) {
+    public <T extends AbstractConfig> @NotNull T getConfig(@NotNull Class<T> configClass) {
         AbstractConfig config = this.registeredConfigurations.get(configClass);
         if (config != null)
             return (T) config;

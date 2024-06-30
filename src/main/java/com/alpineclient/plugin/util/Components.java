@@ -17,41 +17,34 @@ import org.jetbrains.annotations.NotNull;
 @UtilityClass
 @ApiStatus.Internal
 public final class Components {
-    @NotNull
-    public static Component reset() {
+    public static @NotNull Component reset() {
         Style.Builder style = Style.style().color(TextColor.color(-1));
         for (TextDecoration value : TextDecoration.values())
             style.decoration(value, TextDecoration.State.FALSE);
         return Component.text("").color(TextColor.color(-1)).style(style.build());
     }
 
-    @NotNull
-    public static Component join(@NotNull Component... components) {
+    public static @NotNull Component join(@NotNull Component... components) {
         return reset().append(Component.join(JoinConfiguration.noSeparators(), components)).compact();
     }
 
-    @NotNull
-    public static Component join(@NotNull Iterable<Component> components) {
+    public static @NotNull Component join(@NotNull Iterable<Component> components) {
         return reset().append(Component.join(JoinConfiguration.noSeparators(), components)).compact();
     }
 
-    @NotNull
-    public static Component joinSpaces(@NotNull Component... components) {
+    public static @NotNull Component joinSpaces(@NotNull Component... components) {
         return reset().append(Component.join(JoinConfiguration.separator(Component.space()), components)).compact();
     }
 
-    @NotNull
-    public static Component joinSpaces(@NotNull Iterable<Component> components) {
+    public static @NotNull Component joinSpaces(@NotNull Iterable<Component> components) {
         return reset().append(Component.join(JoinConfiguration.separator(Component.space()), components)).compact();
     }
 
-    @NotNull
-    public static Component joinNewLines(@NotNull Component... components) {
+    public static @NotNull Component joinNewLines(@NotNull Component... components) {
         return reset().append(Component.join(JoinConfiguration.newlines(), components)).compact();
     }
 
-    @NotNull
-    public static Component joinNewLines(@NotNull Iterable<Component> components) {
+    public static @NotNull Component joinNewLines(@NotNull Iterable<Component> components) {
         return reset().append(Component.join(JoinConfiguration.newlines(), components)).compact();
     }
 

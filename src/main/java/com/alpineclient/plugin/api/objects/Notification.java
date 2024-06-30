@@ -119,8 +119,7 @@ public final class Notification {
      *
      * @return The builder
      */
-    @NotNull
-    public static Builder builder() {
+    public static @NotNull Builder builder() {
         return new Builder();
     }
 
@@ -140,8 +139,7 @@ public final class Notification {
          * @param title the title
          * @return the builder
          */
-        @NotNull
-        public Builder title(@NotNull String title) {
+        public @NotNull Builder title(@NotNull String title) {
             this.title = title;
             return this;
         }
@@ -152,8 +150,7 @@ public final class Notification {
          * @param description the description
          * @return the builder
          */
-        @NotNull
-        public Builder description(@NotNull String description) {
+        public @NotNull Builder description(@NotNull String description) {
             this.description = description;
             return this;
         }
@@ -164,8 +161,7 @@ public final class Notification {
          * @param color the color
          * @return the builder
          */
-        @NotNull
-        public Builder color(int color) {
+        public @NotNull Builder color(int color) {
             this.color = color;
             return this;
         }
@@ -176,8 +172,7 @@ public final class Notification {
          * @param duration the duration
          * @return the builder
          */
-        @NotNull
-        public Builder duration(long duration) {
+        public @NotNull Builder duration(long duration) {
             this.duration = duration;
             return this;
         }
@@ -188,8 +183,7 @@ public final class Notification {
          * @param texture the texture
          * @return the builder
          */
-        @NotNull
-        public Builder texture(@NotNull ClientResource texture) {
+        public @NotNull Builder texture(@NotNull ClientResource texture) {
             this.texture = texture;
             return this;
         }
@@ -199,8 +193,7 @@ public final class Notification {
          *
          * @return the built {@link Notification}
          */
-        @NotNull
-        public Notification build() {
+        public @NotNull Notification build() {
             Preconditions.checkNotNull(this.description);
             return new Notification(this.title, this.description, this.color, this.duration, this.texture);
         }
