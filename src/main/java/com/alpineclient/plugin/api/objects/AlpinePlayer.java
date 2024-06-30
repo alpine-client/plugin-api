@@ -91,7 +91,7 @@ public final class AlpinePlayer {
      *
      * @return the client brand
      */
-    public String getClientBrand() {
+    public @NotNull String getClientBrand() {
         return this.version + "-" + this.platform;
     }
 
@@ -124,23 +124,6 @@ public final class AlpinePlayer {
      */
     public void deleteWaypoint(@NotNull UUID id) {
         PacketWaypointRemove packet = new PacketWaypointRemove(id);
-        this.sendPacket(packet);
-    }
-
-    /**
-     * Sends the current module settings to this player.
-     */
-    public void sendModules() {
-        GeneralConfig config = ConfigManager.getInstance().getConfig(GeneralConfig.class);
-        PacketModules packet = new PacketModules(config.modules);
-        this.sendPacket(packet);
-    }
-
-    /**
-     * Sends the current world name to this player.
-     */
-    public void sendWorldUpdate() {
-        PacketWorldUpdate packet = new PacketWorldUpdate(this.bukkitPlayer.getWorld().getName());
         this.sendPacket(packet);
     }
 

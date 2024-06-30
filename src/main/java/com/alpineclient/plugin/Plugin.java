@@ -5,6 +5,7 @@ import com.alpineclient.plugin.config.ConfigManager;
 import com.alpineclient.plugin.config.impl.MessageConfig;
 import com.alpineclient.plugin.framework.EventListener;
 import com.alpineclient.plugin.framework.PluginListener;
+import com.alpineclient.plugin.handler.CapabilityHandler;
 import com.alpineclient.plugin.handler.PlayerHandler;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
@@ -47,10 +48,14 @@ public final class Plugin extends JavaPlugin {
     @Getter
     private PlayerHandler playerHandler;
 
+    @Getter
+    private CapabilityHandler capabilityHandler;
+
     @Override
     public void onEnable() {
         this.configManager = new ConfigManager();
         this.playerHandler = new PlayerHandler();
+        this.capabilityHandler = new CapabilityHandler();
         this.commandManager = this.createCommandManager();
 
         this.registerAll();

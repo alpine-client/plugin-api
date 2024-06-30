@@ -101,5 +101,6 @@ public abstract class Packet {
         /* Plugin API */
         addPacket(0xB0, PacketModules.class);
         addPacket(0xB1, PacketWorldUpdate.class);
+        addPacket(0xB2, PacketCapabilities.class);
     }
 }

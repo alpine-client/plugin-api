@@ -2,6 +2,7 @@ package com.alpineclient.plugin.api;
 
 import com.alpineclient.plugin.Plugin;
 import com.alpineclient.plugin.api.objects.AlpinePlayer;
+import com.alpineclient.plugin.api.objects.Capability;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -94,4 +95,55 @@ public final class AlpineClientApi {
     public static @NotNull Collection<AlpinePlayer> getAllPlayers() {
         return plugin.getPlayerHandler().getConnectedPlayers();
     }
+
+
+    // region Capabilities
+    /**
+     * Register a capability that should be communicated to any players connecting via Alpine Client.
+     *
+     * @param capability the {@link com.alpineclient.plugin.api.objects.Capability}
+     *
+     * @since 1.3.0
+     */
+    public static void registerCapability(@NotNull Capability capability) {
+        plugin.getCapabilityHandler().addCapability(capability);
+    }
+
+    /**
+     * Registers capabilities that should be communicated to any players connecting via Alpine Client.
+     *
+     * @param capabilities a varargs array containing {@link com.alpineclient.plugin.api.objects.Capability}
+     *
+     * @since 1.3.0
+     */
+    public static void registerCapabilities(@NotNull Capability... capabilities) {
+        for (Capability capability : capabilities) {
+            registerCapability(capability);
+        }
+    }
+
+    /**
+     * Unregister a capability that should stop being communicated to any players connecting via Alpine Client.
+     *
+     * @param capability the {@link com.alpineclient.plugin.api.objects.Capability}
+     *
+     * @since 1.3.0
+     */
+    public static void unregisterCapability(@NotNull Capability capability) {
+        plugin.getCapabilityHandler().removeCapability(capability);
+    }
+
+    /**
+     * Unregisters capabilities that should stop being communicated to any players connecting via Alpine Client.
+     *
+     * @param capabilities a varargs array containing {@link com.alpineclient.plugin.api.objects.Capability}
+     *
+     * @since 1.3.0
+     */
+    public static void unregisterCapabilities(@NotNull Capability... capabilities) {
+        for (Capability capability : capabilities) {
+            unregisterCapability(capability);
+        }
+    }
+    // endregion
 }

@@ -89,10 +89,14 @@ tasks.withType<ShadowJar> {
 
     // Relocate dependencies
     val root = "com.alpineclient.dependencies"
-    relocate("dev", "$root.dev")
-    relocate("de", "$root.de")
-    relocate("net", "$root.net")
-    relocate("org", "$root.org")
+    relocate("de.exlll", "$root.de.exlll")
+    relocate("dev.rollczi", "$root.dev.rollczi")
+    relocate("net.jodah", "$root.net.jodah")
+    relocate("net.kyori", "$root.net.kyori")
+    relocate("org.intellij", "$root.org.intellij")
+    relocate("org.jetbrains", "$root.org.jetbrains")
+    relocate("org.msgpack", "$root.org.msgpack")
+    relocate("org.snakeyaml", "$root.org.snakeyaml")
     relocate("panda", "$root.panda")
 
     // Add shaded dependencies
