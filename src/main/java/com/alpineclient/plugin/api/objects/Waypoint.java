@@ -16,15 +16,15 @@ import java.util.UUID;
  */
 public final class Waypoint {
     /**
-     * The default color used in {@link Builder}.
+     * The default color used in {@link Waypoint.Builder}.
      */
     public static final int DEFAULT_COLOR = new Color(78, 75, 214).getRGB();
     /**
-     * The default world name used in {@link Builder}.
+     * The default world name used in {@link Waypoint.Builder}.
      */
     public static final String DEFAULT_WORLD = "unknown_world";
     /**
-     * The default duration used in {@link Builder}.
+     * The default duration used in {@link Waypoint.Builder}.
      */
     public static final long DEFAULT_DURATION = 5000L;
     /**

@@ -29,7 +29,7 @@ public final class AlpineClientApi {
     /**
      * Check if a player is currently connected via Alpine Client.
      *
-     * @param player the {@link com.alpineclient.plugin.api.objects.AlpinePlayer}
+     * @param player the {@link AlpinePlayer}
      *
      * @return {@code true} if the player is using Alpine Client
      */
@@ -51,7 +51,7 @@ public final class AlpineClientApi {
     /**
      * Check if a player is connected via Alpine Client.
      *
-     * @param id the {@link java.util.UUID} of the players account
+     * @param id the {@link UUID} of the players account
      *
      * @return {@code true} if the player is using Alpine Client
      */
@@ -75,7 +75,7 @@ public final class AlpineClientApi {
     /**
      * Get a player connected via Alpine Client.
      *
-     * @param id the {@link java.util.UUID} of the players account
+     * @param id the {@link UUID} of the players account
      *
      * @return an {@link Optional} describing the player
      *
@@ -88,7 +88,7 @@ public final class AlpineClientApi {
     /**
      * Get all players connected via Alpine Client.
      *
-     * @return a list containing {@link com.alpineclient.plugin.api.objects.AlpinePlayer}
+     * @return a list containing {@link AlpinePlayer}
      *
      * @since 1.1.2
      */
@@ -101,7 +101,7 @@ public final class AlpineClientApi {
     /**
      * Register a capability that should be communicated to any players connecting via Alpine Client.
      *
-     * @param capability the {@link com.alpineclient.plugin.api.objects.Capability}
+     * @param capability the {@link Capability}
      *
      * @since 1.3.0
      */
@@ -112,7 +112,7 @@ public final class AlpineClientApi {
     /**
      * Registers capabilities that should be communicated to any players connecting via Alpine Client.
      *
-     * @param capabilities a varargs array containing {@link com.alpineclient.plugin.api.objects.Capability}
+     * @param capabilities a varargs array containing {@link Capability}
      *
      * @since 1.3.0
      */
@@ -125,7 +125,7 @@ public final class AlpineClientApi {
     /**
      * Unregister a capability that should stop being communicated to any players connecting via Alpine Client.
      *
-     * @param capability the {@link com.alpineclient.plugin.api.objects.Capability}
+     * @param capability the {@link Capability}
      *
      * @since 1.3.0
      */
@@ -136,7 +136,7 @@ public final class AlpineClientApi {
     /**
      * Unregisters capabilities that should stop being communicated to any players connecting via Alpine Client.
      *
-     * @param capabilities a varargs array containing {@link com.alpineclient.plugin.api.objects.Capability}
+     * @param capabilities a varargs array containing {@link Capability}
      *
      * @since 1.3.0
      */

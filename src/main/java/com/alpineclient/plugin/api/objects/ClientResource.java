@@ -22,7 +22,7 @@ public final class ClientResource {
     /**
      * Get the type of the resource.
      *
-     * @return the {@link com.alpineclient.plugin.api.objects.ClientResource.Type}
+     * @return the {@link ClientResource.Type}
      */
     public @NotNull Type getType() {
         return this.type;
@@ -31,10 +31,10 @@ public final class ClientResource {
     /**
      * Get the value of the resource.
      * <p>
-     * For {@link com.alpineclient.plugin.api.objects.ClientResource.Type#INTERNAL} this is a path,
-     * for {@link com.alpineclient.plugin.api.objects.ClientResource.Type#EXTERNAL} this is a URL.
+     * For {@link ClientResource.Type#INTERNAL} this is a path,
+     * for {@link ClientResource.Type#EXTERNAL} this is a URL.
      *
-     * @return the {@link com.alpineclient.plugin.api.objects.ClientResource.Type}
+     * @return the {@link ClientResource.Type}
      */
     public @NotNull String getValue() {
         return this.value;

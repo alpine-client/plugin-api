@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.awt.*;
 import java.util.Objects;
 
 /**
@@ -14,11 +15,11 @@ import java.util.Objects;
  */
 public final class Notification {
     /**
-     * The default color used in {@link Builder}.
+     * The default color used in {@link Notification.Builder}.
      */
-    public static final int DEFAULT_COLOR = -2;
+    public static final int DEFAULT_COLOR = new Color(255, 255, 255, 255).getRGB();
     /**
-     * The default display duration used in {@link Builder}.
+     * The default display duration used in {@link Notification.Builder}.
      */
     public static final long DEFAULT_DISPLAY_DURATION = 5000L;
 
@@ -75,7 +76,7 @@ public final class Notification {
     /**
      * Get the texture of the notification.
      *
-     * @return the {@link com.alpineclient.plugin.api.objects.ClientResource}
+     * @return the {@link ClientResource}
      */
     public @Nullable ClientResource getTexture() {
         return this.texture;
