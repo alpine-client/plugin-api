@@ -18,14 +18,14 @@ public final class DebugLogListener extends EventListener {
     @EventHandler
     public void onPlayerHandshake(ClientHandshakeEvent event) {
         if (this.generalConfig.logging) {
-            Reference.LOGGER.info("Player completed Alpine Client handshake: {} @ {}", event.getPlayer().getBukkitPlayer().getName(), event.getPlayer().getClientBrand());
+            Reference.LOGGER.info("Player completed handshake: {} @ {}", event.getPlayer().getBukkitPlayer().getName(), event.getPlayer().getClientBrand());
         }
     }
 
     @EventHandler
     public void onPlayerDisconnect(ClientDisconnectEvent event) {
         if (this.generalConfig.logging) {
-            Reference.LOGGER.info("Alpine Client player disconnected: {}", event.getPlayer().getBukkitPlayer().getName());
+            Reference.LOGGER.info("Player disconnected: {}", event.getPlayer().getBukkitPlayer().getName());
         }
     }
 }
