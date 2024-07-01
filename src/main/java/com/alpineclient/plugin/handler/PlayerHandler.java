@@ -1,5 +1,6 @@
 package com.alpineclient.plugin.handler;
 
+import com.alpineclient.plugin.api.event.ClientDisconnectEvent;
 import com.alpineclient.plugin.api.event.ClientHandshakeEvent;
 import com.alpineclient.plugin.api.objects.AlpinePlayer;
 import com.alpineclient.plugin.util.object.HandshakeData;
@@ -25,12 +26,18 @@ public final class PlayerHandler {
             AlpinePlayer alpinePlayer = new AlpinePlayer(player, data);
             this.connectedPlayers.put(id, alpinePlayer);
             Bukkit.getPluginManager().callEvent(new ClientHandshakeEvent(alpinePlayer));
+            return true;
         }
         return false;
     }
 
     public boolean removeConnectedPlayer(@NotNull UUID id) {
-        return this.connectedPlayers.remove(id) != null;
+        if (this.connectedPlayers.containsKey(id)) {
+            AlpinePlayer player = this.connectedPlayers.remove(id);
+            Bukkit.getPluginManager().callEvent(new ClientDisconnectEvent(player));
+            return true;
+        }
+        return false;
     }
 
     public boolean isPlayerConnected(@NotNull UUID id) {

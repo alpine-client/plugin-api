@@ -1,6 +1,5 @@
 package com.alpineclient.plugin.listener.event;
 
-import com.alpineclient.plugin.api.event.ClientDisconnectEvent;
 import com.alpineclient.plugin.api.event.ClientHandshakeEvent;
 import com.alpineclient.plugin.api.objects.AlpinePlayer;
 import com.alpineclient.plugin.config.ConfigManager;
@@ -11,7 +10,7 @@ import com.alpineclient.plugin.network.Packet;
 import com.alpineclient.plugin.network.packet.PacketCapabilities;
 import com.alpineclient.plugin.network.packet.PacketModules;
 import com.alpineclient.plugin.network.packet.PacketWorldUpdate;
-import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -41,11 +40,13 @@ public final class PlayerListener extends EventListener {
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        UUID id = event.getPlayer().getUniqueId();
+        Player player = event.getPlayer();
+        UUID id = player.getUniqueId();
         if (this.plugin.getPlayerHandler().isPlayerConnected(id)) {
-            AlpinePlayer player = this.plugin.getPlayerHandler().getConnectedPlayer(id);
-            this.plugin.getPlayerHandler().removeConnectedPlayer(id);
-            Bukkit.getPluginManager().callEvent(new ClientDisconnectEvent(player));
+            boolean success = this.plugin.getPlayerHandler().removeConnectedPlayer(id);
+            if (success) {
+                player.removeMetadata("IsOnAlpineClient", this.plugin);
+            }
         }
     }
 
