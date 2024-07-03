@@ -44,7 +44,7 @@ dependencies {
     depend(this, "net.kyori:adventure-text-minimessage:${adventure}")
     depend(this, "net.kyori:adventure-text-serializer-legacy:${adventure}")
 
-    val lombok = "org.projectlombok:lombok:1.18.32"
+    val lombok = "org.projectlombok:lombok:1.18.34"
     compileOnly(lombok)
     annotationProcessor(lombok)
 }
