@@ -1,9 +1,13 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package com.alpineclient.plugin.listener.plugin;
 
-import com.alpineclient.plugin.Plugin;
 import com.alpineclient.plugin.Reference;
 import com.alpineclient.plugin.framework.PluginListener;
-import com.alpineclient.plugin.PlayerHandler;
 import com.alpineclient.plugin.network.Packet;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +25,7 @@ public final class PlayListener extends PluginListener {
 
     @Override
     public void onMessage(@NotNull Player player, byte[] message) {
-        if (Plugin.getInstance().getPlayerHandler().isPlayerConnected(player.getUniqueId())) {
+        if (this.main.getPlayerHandler().isPlayerConnected(player.getUniqueId())) {
             Packet packet = Packet.fromBytes(message);
             if (packet != null) {
                 packet.process(player);

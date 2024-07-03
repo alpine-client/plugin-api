@@ -1,6 +1,12 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package com.alpineclient.plugin.config;
 
-import com.alpineclient.plugin.Plugin;
+import com.alpineclient.plugin.PluginMain;
 import com.alpineclient.plugin.Reference;
 import com.alpineclient.plugin.config.impl.GeneralConfig;
 import com.alpineclient.plugin.config.impl.MessageConfig;
@@ -14,14 +20,12 @@ import java.io.File;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 
 /**
  * @author BestBearr
  * Created on 02/06/23
  */
 public final class ConfigManager {
-
     @Getter
     private static ConfigManager instance;
 
@@ -41,12 +45,13 @@ public final class ConfigManager {
 
     public ConfigManager() {
         instance = this;
-        File path = Plugin.getInstance().getDataFolder();
+        PluginMain main = PluginMain.getInstance();
 
+        File path = main.getDataFolder();
         if (!path.exists() && !path.mkdirs())
             throw new IllegalStateException("Unable to generate configuration directory");
 
-        File dataFolder = Plugin.getInstance().getDataFolder();
+        File dataFolder = main.getDataFolder();
         this.registeredConfigurations.put(GeneralConfig.class, new GeneralConfig(new File(dataFolder, "config.yml").toPath()));
         this.registeredConfigurations.put(MessageConfig.class, new MessageConfig(new File(dataFolder, "messages.yml").toPath()));
 
@@ -85,17 +90,7 @@ public final class ConfigManager {
         }
     }
 
-    @NotNull
-    public <T extends AbstractConfig> T getConfig(@NotNull Class<T> configClass, @NotNull Consumer<T> consumer) {
-        AbstractConfig config = this.registeredConfigurations.get(configClass);
-        if (config != null) {
-            return (T) config;
-        }
-        throw new IllegalStateException("config was not registered");
-    }
-
-    @NotNull
-    public <T extends AbstractConfig> T getConfig(@NotNull Class<T> configClass) {
+    public <T extends AbstractConfig> @NotNull T getConfig(@NotNull Class<T> configClass) {
         AbstractConfig config = this.registeredConfigurations.get(configClass);
         if (config != null)
             return (T) config;

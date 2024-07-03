@@ -1,5 +1,12 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package com.alpineclient.plugin.framework;
 
+import com.alpineclient.plugin.PluginMain;
 import com.alpineclient.plugin.Reference;
 import lombok.Getter;
 import org.bukkit.entity.Player;
@@ -13,6 +20,8 @@ import org.jetbrains.annotations.NotNull;
 public abstract class PluginListener implements PluginMessageListener {
     @Getter
     private final String channelId;
+
+    protected final PluginMain main = PluginMain.getInstance();
 
     protected PluginListener(String channelId) {
         this.channelId = channelId;

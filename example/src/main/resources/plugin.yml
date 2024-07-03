@@ -1,0 +1,15 @@
+main: dev.tomwmth.exampleplugin.ExamplePlugin
+name: ExamplePlugin
+version: 1.0.0
+description: An example plugin using AlpineClientAPI
+author: tomwmth
+website: https://github.com/tomwmth
+api-version: 1.13
+
+commands:
+  ping:
+      description: Sends a waypoint of your location to all Alpine Client users.
+      usage: /ping
+
+depend:
+  - AlpineClientAPI

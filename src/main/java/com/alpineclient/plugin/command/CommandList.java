@@ -1,6 +1,11 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package com.alpineclient.plugin.command;
 
-import com.alpineclient.plugin.Plugin;
 import com.alpineclient.plugin.framework.BaseCommand;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
@@ -19,7 +24,7 @@ import java.util.stream.Collectors;
 public final class CommandList extends BaseCommand {
     @Execute
     public void execute(@Context CommandSender sender) {
-        List<String> playerNames = Plugin.getInstance().getPlayerHandler().getConnectedPlayers().stream()
+        List<String> playerNames = this.main.getPlayerHandler().getConnectedPlayers().stream()
                 .map(player -> player == null ? null : player.getBukkitPlayer().getName())
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());

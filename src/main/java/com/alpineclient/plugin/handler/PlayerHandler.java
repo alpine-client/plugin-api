@@ -1,5 +1,12 @@
-package com.alpineclient.plugin;
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
 
+package com.alpineclient.plugin.handler;
+
+import com.alpineclient.plugin.api.event.ClientDisconnectEvent;
 import com.alpineclient.plugin.api.event.ClientHandshakeEvent;
 import com.alpineclient.plugin.api.objects.AlpinePlayer;
 import com.alpineclient.plugin.util.object.HandshakeData;
@@ -9,10 +16,7 @@ import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.*;
 
 /**
  * @author Thomas Wearmouth
@@ -20,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @ApiStatus.Internal
 public final class PlayerHandler {
-    private final Map<UUID, AlpinePlayer> connectedPlayers = new ConcurrentHashMap<>();
+    private final Map<UUID, AlpinePlayer> connectedPlayers = new HashMap<>();
 
     public boolean addConnectedPlayer(@NotNull Player player, @NotNull HandshakeData data) {
         UUID id = player.getUniqueId();
@@ -28,12 +32,18 @@ public final class PlayerHandler {
             AlpinePlayer alpinePlayer = new AlpinePlayer(player, data);
             this.connectedPlayers.put(id, alpinePlayer);
             Bukkit.getPluginManager().callEvent(new ClientHandshakeEvent(alpinePlayer));
+            return true;
         }
         return false;
     }
 
     public boolean removeConnectedPlayer(@NotNull UUID id) {
-        return this.connectedPlayers.remove(id) != null;
+        if (this.connectedPlayers.containsKey(id)) {
+            AlpinePlayer player = this.connectedPlayers.remove(id);
+            Bukkit.getPluginManager().callEvent(new ClientDisconnectEvent(player));
+            return true;
+        }
+        return false;
     }
 
     public boolean isPlayerConnected(@NotNull UUID id) {
@@ -49,6 +59,6 @@ public final class PlayerHandler {
     }
 
     public @NotNull Collection<AlpinePlayer> getConnectedPlayers() {
-        return this.connectedPlayers.values();
+        return Collections.unmodifiableCollection(this.connectedPlayers.values());
     }
 }

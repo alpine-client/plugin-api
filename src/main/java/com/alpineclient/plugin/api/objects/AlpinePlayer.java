@@ -1,17 +1,23 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package com.alpineclient.plugin.api.objects;
 
-import com.alpineclient.plugin.Plugin;
-import com.alpineclient.plugin.config.ConfigManager;
-import com.alpineclient.plugin.config.impl.GeneralConfig;
+import com.alpineclient.plugin.PluginMain;
+import com.alpineclient.plugin.api.AlpineClientApi;
 import com.alpineclient.plugin.listener.plugin.PlayListener;
 import com.alpineclient.plugin.network.Packet;
 import com.alpineclient.plugin.network.packet.*;
 import com.alpineclient.plugin.util.object.HandshakeData;
-import lombok.Getter;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,36 +29,18 @@ import java.util.UUID;
  * @since 1.0.0
  */
 public final class AlpinePlayer {
-    /**
-     * The underlying Bukkit player object.
-     */
-    @Getter private final Player bukkitPlayer;
-
-    /**
-     * The mod platform the user is on.<p>
-     * e.g. {@code fabric}, {@code forge}
-     */
-    @Getter private final String platform;
-
-    /**
-     * The Minecraft version the user is on.<p>
-     * e.g. {@code 1.8.9}, {@code 1.20}
-     */
-    @Getter private final String version;
-
-    /**
-     * A list containing all the user's loaded mod IDs.<p>
-     * e.g. {@code ["sodium", "lithium", "alpineclient"]}
-     */
-    @Getter private final List<String> mods;
+    private final Player bukkitPlayer;
+    private final String platform;
+    private final String version;
+    private final List<String> mods;
 
     @ApiStatus.Internal
-    public AlpinePlayer(Player bukkitPlayer, HandshakeData data) {
+    public AlpinePlayer(@NotNull Player bukkitPlayer, @NotNull HandshakeData data) {
         this(bukkitPlayer, data.getPlatform(), data.getVersion(), data.getMods());
     }
 
     @ApiStatus.Internal
-    public AlpinePlayer(Player bukkitPlayer, String platform, String version, List<String> mods) {
+    public AlpinePlayer(@NotNull Player bukkitPlayer, @NotNull String platform, @NotNull String version, @NotNull List<String> mods) {
         this.bukkitPlayer = bukkitPlayer;
         this.platform = platform;
         this.version = version;
@@ -60,13 +48,56 @@ public final class AlpinePlayer {
     }
 
     /**
+     * Get the underlying Bukkit player object.
+     *
+     * @return the {@link org.bukkit.entity.Player}
+     */
+    public @NotNull Player getBukkitPlayer() {
+        return this.bukkitPlayer;
+    }
+
+    /**
+     * Get the mod platform the user is on.
+     * <p>
+     * e.g. {@code fabric}, {@code forge}
+     *
+     * @return the mod platform
+     */
+    public @NotNull String getPlatform() {
+        return this.platform;
+    }
+
+    /**
+     * Get the Minecraft version the user is on.
+     * <p>
+     * e.g. {@code 1.8.9}, {@code 1.20}
+     *
+     * @return the Minecraft version
+     */
+    public @NotNull String getVersion() {
+        return this.version;
+    }
+
+    /**
+     * Get all the user's loaded mod IDs.
+     * <p>
+     * e.g. {@code ["sodium", "lithium", "alpineclient"]}
+     *
+     * @return a list containing mod IDs
+     */
+    public @NotNull List<String> getMods() {
+        return Collections.unmodifiableList(this.mods);
+    }
+
+    /**
      * Get the full client brand consisting of their version
-     * and platform.<p>
+     * and platform.
+     * <p>
      * e.g. {@code 1.20-fabric}
      *
      * @return the client brand
      */
-    public String getClientBrand() {
+    public @NotNull String getClientBrand() {
         return this.version + "-" + this.platform;
     }
 
@@ -103,23 +134,21 @@ public final class AlpinePlayer {
     }
 
     /**
-     * Sends the current module settings to this player.
+     * Sends a cooldown to this player.
+     * <p>
+     * If you intend to utilize the Cooldowns module, you must first declare
+     * the capability with {@link AlpineClientApi#registerCapabilities(Plugin, Capability...)}.
+     *
+     * @param cooldown the cooldown to send
+     *
+     * @since 1.3.0
      */
-    public void sendModules() {
-        GeneralConfig config = ConfigManager.getInstance().getConfig(GeneralConfig.class);
-        PacketModules packet = new PacketModules(config.modules);
-        this.sendPacket(packet);
-    }
-
-    /**
-     * Sends the current world name to this player.
-     */
-    public void sendWorldUpdate() {
-        PacketWorldUpdate packet = new PacketWorldUpdate(this.bukkitPlayer.getWorld().getName());
+    public void sendCooldown(@NotNull Cooldown cooldown) {
+        PacketCooldownAdd packet = new PacketCooldownAdd(cooldown);
         this.sendPacket(packet);
     }
 
     private void sendPacket(Packet packet) {
-        this.bukkitPlayer.sendPluginMessage(Plugin.getInstance(), PlayListener.CHANNEL_ID, packet.toBytes());
+        this.bukkitPlayer.sendPluginMessage(PluginMain.getInstance(), PlayListener.CHANNEL_ID, packet.toBytes());
     }
 }

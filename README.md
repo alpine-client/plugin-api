@@ -1,14 +1,4 @@
-<div align="center">
-<img src="https://alpn.cloud/119380848981184512/Banner_Cropped.png" alt="banner"/>
-
-[![Java](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/built-with/java8_vector.svg)](https://www.java.com/)
-[![Website](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/documentation/website_vector.svg)](https://alpineclient.com/)
-
-# Plugin API 
-[![Version](https://lib.alpn.cloud/api/badge/latest/alpine-public/com/alpineclient/api-plugin?color=A62639&name=Latest)](https://lib.alpn.cloud/#/alpine-public/com/alpineclient/api-plugin)
-
-</div>
-<br/>
+# Alpine Client: Plugin API [![Version](https://lib.alpn.cloud/api/badge/latest/alpine-public/com/alpineclient/api-plugin?color=A62639&name=Latest)](https://lib.alpn.cloud/#/alpine-public/com/alpineclient/api-plugin)
 
 ### 🛡️ For Server Admins
 This plugin does the following by default:
@@ -19,7 +9,7 @@ This plugin does the following by default:
 - `/acnotify [player] [content]` - Sends a notification to the given player containing the given content.  Requires the `alpineapi.notify` permission.
 - `/aclist` - Displays a list of all online Alpine Client users. Requires the `alpineapi.list` permission.
 
-The plugin has been explicitly verified to work on server versions `1.8.8`, `1.19.4` and `1.20.1`, however all versions in between and above *should* work.
+The plugin should work on any server running on at least `1.8.8` and Java 8.
 
 Much more is possible with this API, however it would require your development team to implement it with your plugins manually. This is what is available by default with no extra development work.
 
@@ -34,6 +24,7 @@ This plugin exposes an API that can be leveraged to add Alpine Client integratio
   - Loaded mod IDs
 - Sending custom notifications to the client
 - Sending temporary waypoints to the client
+- Sending cooldown information to the client
 
 The plugin can be added as a dependency to your Gradle buildscript like so:
 
@@ -59,3 +50,8 @@ We currently use the following channels:
 
 - `ac:handshake` - Used by both the client and server to perform a handshake upon login.
 - `ac:play` - Used by both the client and the server to send/receive custom packets relating to the API.
+
+<br/>
+
+### 📜 License
+This repository is licensed under the [Mozilla Public License, version 2.0](https://www.mozilla.org/en-US/MPL/2.0/). Before interacting with the code in any way, please ensure that you understand your obligations under the license. Mozilla provides a list of frequently asked questions [here](https://www.mozilla.org/en-US/MPL/2.0/FAQ/).

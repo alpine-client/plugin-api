@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package com.alpineclient.plugin;
 
 import com.alpineclient.plugin.command.*;
@@ -5,6 +11,8 @@ import com.alpineclient.plugin.config.ConfigManager;
 import com.alpineclient.plugin.config.impl.MessageConfig;
 import com.alpineclient.plugin.framework.EventListener;
 import com.alpineclient.plugin.framework.PluginListener;
+import com.alpineclient.plugin.handler.CapabilityHandler;
+import com.alpineclient.plugin.handler.PlayerHandler;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import dev.rollczi.litecommands.LiteCommands;
@@ -30,9 +38,9 @@ import java.util.stream.Collectors;
  * Created on 21/06/2023
  */
 @ApiStatus.Internal
-public final class Plugin extends JavaPlugin {
+public final class PluginMain extends JavaPlugin {
     @Getter
-    private static Plugin instance;
+    private static PluginMain instance;
     {
         instance = this;
     }
@@ -46,10 +54,14 @@ public final class Plugin extends JavaPlugin {
     @Getter
     private PlayerHandler playerHandler;
 
+    @Getter
+    private CapabilityHandler capabilityHandler;
+
     @Override
     public void onEnable() {
         this.configManager = new ConfigManager();
         this.playerHandler = new PlayerHandler();
+        this.capabilityHandler = new CapabilityHandler();
         this.commandManager = this.createCommandManager();
 
         this.registerAll();
@@ -81,7 +93,7 @@ public final class Plugin extends JavaPlugin {
         return builder.build();
     }
 
-    @SuppressWarnings("UnstableApiUsage")
+    @SuppressWarnings({"UnstableApiUsage", "unchecked"})
     private void registerAll() {
         String packageName = this.getClass().getPackage().getName();
         Set<Class<?>> clazzes = ImmutableSet.of();
@@ -114,7 +126,7 @@ public final class Plugin extends JavaPlugin {
                 }
             }
             catch (Exception ex) {
-                Reference.LOGGER.error("Failed to register " + clazz.getName(), ex);
+                Reference.LOGGER.error("Failed to register {}", clazz.getName(), ex);
             }
         }
     }

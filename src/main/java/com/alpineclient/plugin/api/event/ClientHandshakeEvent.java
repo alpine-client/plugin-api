@@ -1,7 +1,12 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package com.alpineclient.plugin.api.event;
 
 import com.alpineclient.plugin.api.objects.AlpinePlayer;
-import lombok.Getter;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.ApiStatus;
@@ -16,10 +21,10 @@ import org.jetbrains.annotations.NotNull;
 public final class ClientHandshakeEvent extends Event {
     private static final HandlerList HANDLERS = new HandlerList();
 
-    @Getter private final AlpinePlayer player;
+    private final AlpinePlayer player;
 
     @ApiStatus.Internal
-    public ClientHandshakeEvent(AlpinePlayer player) {
+    public ClientHandshakeEvent(@NotNull AlpinePlayer player) {
         this.player = player;
     }
 
@@ -31,5 +36,14 @@ public final class ClientHandshakeEvent extends Event {
     @ApiStatus.Internal
     public static @NotNull HandlerList getHandlerList() {
         return HANDLERS;
+    }
+
+    /**
+     * Get the player which this event pertains to.
+     *
+     * @return the {@link AlpinePlayer}
+     */
+    public @NotNull AlpinePlayer getPlayer() {
+        return this.player;
     }
 }

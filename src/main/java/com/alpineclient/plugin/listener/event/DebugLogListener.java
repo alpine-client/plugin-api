@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package com.alpineclient.plugin.listener.event;
 
 import com.alpineclient.plugin.Reference;
@@ -13,17 +19,19 @@ import org.bukkit.event.EventHandler;
  * Created on 24/06/2023
  */
 public final class DebugLogListener extends EventListener {
+    private final GeneralConfig generalConfig = ConfigManager.getInstance().getConfig(GeneralConfig.class);
+
     @EventHandler
     public void onPlayerHandshake(ClientHandshakeEvent event) {
-        if (ConfigManager.getInstance().getConfig(GeneralConfig.class).logging) {
-            Reference.LOGGER.info("Player completed Alpine Client handshake: {} @ {}", event.getPlayer().getBukkitPlayer().getName(), event.getPlayer().getClientBrand());
+        if (this.generalConfig.logging) {
+            Reference.LOGGER.info("Player completed handshake: {} @ {}", event.getPlayer().getBukkitPlayer().getName(), event.getPlayer().getClientBrand());
         }
     }
 
     @EventHandler
     public void onPlayerDisconnect(ClientDisconnectEvent event) {
-        if (ConfigManager.getInstance().getConfig(GeneralConfig.class).logging) {
-            Reference.LOGGER.info("Alpine Client player disconnected: {}", event.getPlayer().getBukkitPlayer().getName());
+        if (this.generalConfig.logging) {
+            Reference.LOGGER.info("Player disconnected: {}", event.getPlayer().getBukkitPlayer().getName());
         }
     }
 }

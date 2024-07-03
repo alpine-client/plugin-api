@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package com.alpineclient.plugin.util;
 
 import com.alpineclient.plugin.Reference;
@@ -17,7 +23,6 @@ import java.text.DecimalFormat;
 @UtilityClass
 @ApiStatus.Internal
 public final class Formatting {
-
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
 
     /**
@@ -29,8 +34,7 @@ public final class Formatting {
      * WHITE_WOOL -> White Wool
      * RED_SAND -> Red Sand
      */
-    @NotNull
-    public static String formatItemStack(@NotNull ItemStack stack) {
+    public static @NotNull String formatItemStack(@NotNull ItemStack stack) {
         return formatItemStack(stack, false);
     }
 
@@ -44,8 +48,7 @@ public final class Formatting {
      * WHITE_WOOL -> White Wool
      * RED_SAND -> Red Sand
      */
-    @NotNull
-    public static String formatItemStack(@NotNull ItemStack stack, boolean useCustomName) {
+    public static @NotNull String formatItemStack(@NotNull ItemStack stack, boolean useCustomName) {
         if (useCustomName && stack.hasItemMeta()) {
             String[] split = stack.getItemMeta().getDisplayName().toLowerCase().split("[_ ]+");
             StringBuilder builder = new StringBuilder();
@@ -68,8 +71,7 @@ public final class Formatting {
      * WHITE_WOOL -> White Wool
      * RED_SAND -> Red Sand
      */
-    @NotNull
-    public static String formatEnumeration(@NotNull Enum<?> anEnum) {
+    public static @NotNull String formatEnumeration(@NotNull Enum<?> anEnum) {
         String[] split = anEnum.name().toLowerCase().split("[_ ]+");
         StringBuilder builder = new StringBuilder();
         for (String str : split) {
@@ -78,8 +80,7 @@ public final class Formatting {
         return builder.toString().trim();
     }
 
-    @NotNull
-    public static String formatPlaceholders(@Nullable String string, @NotNull Object... placeholders) {
+    public @NotNull static String formatPlaceholders(@Nullable String string, @NotNull Object... placeholders) {
         if (string == null)
             return "";
         if (placeholders.length == 0)

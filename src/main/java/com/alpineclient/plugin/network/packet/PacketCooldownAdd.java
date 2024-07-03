@@ -7,9 +7,10 @@
 package com.alpineclient.plugin.network.packet;
 
 import com.alpineclient.plugin.api.objects.ClientResource;
-import com.alpineclient.plugin.api.objects.Notification;
+import com.alpineclient.plugin.api.objects.Cooldown;
 import com.alpineclient.plugin.network.Packet;
 import com.alpineclient.plugin.network.WriteOnly;
+import com.alpineclient.plugin.util.MsgPackUtils;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.msgpack.core.MessagePacker;
@@ -18,27 +19,25 @@ import org.msgpack.core.MessageUnpacker;
 import java.io.IOException;
 
 /**
- * @author BestBearr
- * Created on 13/06/23
+ * @author Thomas Wearmouth
+ * Created on 30/06/2024
  */
 @WriteOnly
-public final class PacketNotificationAdd extends Packet {
-    private final Notification notification;
+public final class PacketCooldownAdd extends Packet {
+    private final Cooldown cooldown;
 
-    public PacketNotificationAdd(@NotNull Notification notification) {
-        this.notification = notification;
+    public PacketCooldownAdd(@NotNull Cooldown cooldown) {
+        this.cooldown = cooldown;
     }
 
     @Override
     public void write(@NotNull MessagePacker packer) throws IOException {
-        String title = this.notification.getTitle() == null ? "" : this.notification.getTitle();
+        MsgPackUtils.packUuid(packer, this.cooldown.getId());
+        packer.packString(this.cooldown.getName());
+        packer.packInt(this.cooldown.getColor());
+        packer.packLong(this.cooldown.getDuration());
 
-        packer.packString(title);
-        packer.packString(this.notification.getDescription());
-        packer.packInt(this.notification.getColor());
-        packer.packLong(this.notification.getDuration());
-
-        ClientResource texture = this.notification.getTexture();
+        ClientResource texture = this.cooldown.getTexture();
         packer.packBoolean(texture.getType() == ClientResource.Type.INTERNAL);
         packer.packString(texture.getValue());
     }

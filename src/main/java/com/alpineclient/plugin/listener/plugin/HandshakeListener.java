@@ -1,6 +1,11 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package com.alpineclient.plugin.listener.plugin;
 
-import com.alpineclient.plugin.Plugin;
 import com.alpineclient.plugin.Reference;
 import com.alpineclient.plugin.framework.PluginListener;
 import com.alpineclient.plugin.util.object.HandshakeData;
@@ -28,10 +33,10 @@ public final class HandshakeListener extends PluginListener {
         if (!json.isEmpty()) {
             try {
                 HandshakeData data = Reference.GSON.fromJson(json, HandshakeData.class);
-                boolean success = Plugin.getInstance().getPlayerHandler().addConnectedPlayer(player, data);
+                boolean success = this.main.getPlayerHandler().addConnectedPlayer(player, data);
                 if (success) {
-                    player.setMetadata("IsOnAlpineClient", new FixedMetadataValue(Plugin.getInstance(), true));
-                    player.sendPluginMessage(Plugin.getInstance(), this.getChannelId(), MAGIC_NUMBER);
+                    player.setMetadata("IsOnAlpineClient", new FixedMetadataValue(this.main, true));
+                    player.sendPluginMessage(this.main, this.getChannelId(), MAGIC_NUMBER);
                 }
             }
             catch (JsonSyntaxException ex) {

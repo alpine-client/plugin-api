@@ -1,7 +1,12 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package com.alpineclient.plugin.api.util;
 
 import com.alpineclient.plugin.api.objects.ClientResource;
-import lombok.experimental.UtilityClass;
 
 /**
  * Contains some useful icons that can be used in notifications
@@ -10,8 +15,14 @@ import lombok.experimental.UtilityClass;
  * @author Thomas Wearmouth
  * @since 1.0.0
  */
-@UtilityClass
 public final class Resources {
+    /**
+     * Fake constructor to stop attempted instantiation.
+     */
+    private Resources() throws UnsupportedOperationException {
+        throw new UnsupportedOperationException("This is a static utility class and cannot be instantiated");
+    }
+
     // Status
     /**
      * A white, rounded plus sign from Material Icons.

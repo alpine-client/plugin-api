@@ -6,6 +6,7 @@
 
 package com.alpineclient.plugin.network.packet;
 
+import com.alpineclient.plugin.api.objects.Capability;
 import com.alpineclient.plugin.network.Packet;
 import com.alpineclient.plugin.network.WriteOnly;
 import org.bukkit.entity.Player;
@@ -14,27 +15,26 @@ import org.msgpack.core.MessagePacker;
 import org.msgpack.core.MessageUnpacker;
 
 import java.io.IOException;
-import java.util.Map;
+import java.util.Collection;
 
 /**
  * @author Thomas Wearmouth
- * Created on 26/06/2023
+ * Created on 29/06/2024
  */
 @WriteOnly
-public final class PacketModules extends Packet {
-    private final Map<String, Boolean> modules;
+public final class PacketCapabilities extends Packet {
+    private final Collection<Capability> capabilities;
 
-    public PacketModules(@NotNull Map<String, Boolean> modules) {
-        this.modules = modules;
+    public PacketCapabilities(Collection<Capability> capabilities) {
+        this.capabilities = capabilities;
     }
 
     @Override
     public void write(@NotNull MessagePacker packer) throws IOException {
-        int size = this.modules.size();
+        int size = this.capabilities.size();
         packer.packArrayHeader(size);
-        for (Map.Entry<String, Boolean> entry : this.modules.entrySet()) {
-            packer.packString(entry.getKey());
-            packer.packBoolean(entry.getValue());
+        for (Capability capability : this.capabilities) {
+            packer.packString(capability.getId());
         }
     }
 

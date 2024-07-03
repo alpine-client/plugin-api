@@ -1,12 +1,11 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
 
 plugins {
     id("java-library")
     id("maven-publish")
-    id("net.kyori.blossom") version "1.2.0"
-    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("net.kyori.blossom") version "1.3.1"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = this.compileGroup()
@@ -31,22 +30,27 @@ dependencies {
     compileOnly("org.spigotmc:spigot-api:${project.properties["spigot_version"]}")
 
     depend(this, "org.jetbrains:annotations:24.1.0", true)
-    depend(this, "de.exlll:configlib-spigot:4.2.0")
+    depend(this, "dev.tomwmth:configlib-spigot:4.5.0")
     depend(this, "org.msgpack:msgpack-core:0.9.8")
 
-    val liteCommands = "3.4.1"
+    val liteCommands = "3.4.2"
     depend(this, "dev.rollczi:litecommands-bukkit:${liteCommands}")
     depend(this, "dev.rollczi:litecommands-adventure-platform:${liteCommands}")
 
-    val adventure = "4.16.0"
+    val adventure = "4.17.0"
     depend(this, "net.kyori:adventure-platform-bukkit:4.3.2")
     depend(this, "net.kyori:adventure-api:${adventure}")
     depend(this, "net.kyori:adventure-text-minimessage:${adventure}")
     depend(this, "net.kyori:adventure-text-serializer-legacy:${adventure}")
 
-    val lombok = "org.projectlombok:lombok:1.18.32"
+    val lombok = "org.projectlombok:lombok:1.18.34"
     compileOnly(lombok)
     annotationProcessor(lombok)
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
 }
 
 blossom {
@@ -55,14 +59,14 @@ blossom {
     }
 }
 
-tasks.withType<Jar> {
-    // Rename jar
-    archiveFileName.set("${project.properties["plugin_name"]}-$version.jar")
+base {
+    archivesName.set(project.properties["plugin_name"] as String)
+}
 
+tasks.jar {
     // Add exclusions
     exclude("META-INF/versions/")
     exclude("META-INF/maven/")
-    exclude("javassist/**/*.html")
 
     // Fill out manifest
     manifest {
@@ -81,28 +85,39 @@ tasks.withType<Jar> {
             "Specification-Vendor" to "Crystal Development, LLC.",
         )
     }
+
+    // Add license
+    from("LICENSE") {
+        into("META-INF/")
+    }
 }
 
-tasks.withType<ShadowJar> {
+tasks.shadowJar {
     dependsOn("jar")
     outputs.upToDateWhen { false }
 
     // Relocate dependencies
     val root = "com.alpineclient.dependencies"
-    relocate("co.aikar", "$root.co.aikar")
     relocate("de.exlll", "$root.de.exlll")
-    relocate("net.md_5", "$root.net.md_5")
+    relocate("dev.rollczi", "$root.dev.rollczi")
+    relocate("net.jodah", "$root.net.jodah")
+    relocate("net.kyori", "$root.net.kyori")
+    relocate("org.intellij", "$root.org.intellij")
+    relocate("org.jetbrains", "$root.org.jetbrains")
+    relocate("org.msgpack", "$root.org.msgpack")
+    relocate("org.snakeyaml", "$root.org.snakeyaml")
+    relocate("panda", "$root.panda")
 
     // Add shaded dependencies
     configurations.clear()
     configurations.add(project.configurations.getByName("shadow"))
 
-    // Rename shaded jar
-    archiveFileName.set("${project.properties["plugin_name"]}-$version-shaded.jar")
+    // Set classifier
+    archiveClassifier.set("shaded")
 }
 
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
+tasks.build {
+    dependsOn(tasks.shadowJar)
 }
 
 tasks.processResources {
@@ -115,10 +130,16 @@ tasks.processResources {
     }
 }
 
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+}
+
 publishing {
     publications {
         create<MavenPublication>("maven") {
             artifact(tasks["jar"])
+            artifact(tasks["sourcesJar"])
+            artifact(tasks["javadocJar"])
 
             pom {
                 name.set(project.properties["plugin_name"] as String)
@@ -127,8 +148,14 @@ publishing {
 
                 groupId = project.properties["maven_group"] as String
                 artifactId = "api-plugin"
-                version = compileVersion()
                 packaging = "jar"
+
+                licenses {
+                    license {
+                        name = "Mozilla Public License, version 2.0"
+                        url = "https://www.mozilla.org/en-US/MPL/2.0/"
+                    }
+                }
 
                 withXml {
                     val dependenciesNode = asNode().appendNode("dependencies")
@@ -146,7 +173,7 @@ publishing {
     }
     repositories {
         maven {
-            name = "alpine-cloud"
+            name = "AlpnCloud"
             url = uri("https://lib.alpn.cloud/alpine-public")
             credentials {
                 username = System.getenv("ALPINE_MAVEN_NAME")
@@ -156,7 +183,7 @@ publishing {
     }
 }
 
-tasks.withType<Javadoc> {
+tasks.javadoc {
     options {
         this as StandardJavadocDocletOptions
         stylesheetFile = File(projectDir, "/dracula-stylesheet.css")

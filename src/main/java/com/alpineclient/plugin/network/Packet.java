@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package com.alpineclient.plugin.network;
 
 import com.alpineclient.plugin.Reference;
@@ -19,7 +25,6 @@ import java.util.Map;
  * Created on 27/09/2021
  */
 public abstract class Packet {
-
     private static final Map<Class<? extends Packet>, Integer> CLASS_TO_ID;
     private static final Map<Integer, Class<? extends Packet>> ID_TO_CLASS;
 
@@ -102,5 +107,7 @@ public abstract class Packet {
         /* Plugin API */
         addPacket(0xB0, PacketModules.class);
         addPacket(0xB1, PacketWorldUpdate.class);
+        addPacket(0xB2, PacketCapabilities.class);
+        addPacket(0xB3, PacketCooldownAdd.class);
     }
 }
