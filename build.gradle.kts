@@ -1,6 +1,5 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
 
 plugins {
     id("java-library")
@@ -49,16 +48,22 @@ dependencies {
     annotationProcessor(lombok)
 }
 
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
 blossom {
     properties.forEach {
         replaceToken("\${${it.key}}", it.value)
     }
 }
 
-tasks.withType<Jar> {
-    // Rename jar
-    archiveFileName.set("${project.properties["plugin_name"]}-$version.jar")
+base {
+    archivesName.set(project.properties["plugin_name"] as String)
+}
 
+tasks.jar {
     // Add exclusions
     exclude("META-INF/versions/")
     exclude("META-INF/maven/")
@@ -87,7 +92,7 @@ tasks.withType<Jar> {
     }
 }
 
-tasks.withType<ShadowJar> {
+tasks.shadowJar {
     dependsOn("jar")
     outputs.upToDateWhen { false }
 
@@ -107,12 +112,12 @@ tasks.withType<ShadowJar> {
     configurations.clear()
     configurations.add(project.configurations.getByName("shadow"))
 
-    // Rename shaded jar
-    archiveFileName.set("${project.properties["plugin_name"]}-$version-shaded.jar")
+    // Set classifier
+    archiveClassifier.set("shaded")
 }
 
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
+tasks.build {
+    dependsOn(tasks.shadowJar)
 }
 
 tasks.processResources {
@@ -125,10 +130,16 @@ tasks.processResources {
     }
 }
 
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+}
+
 publishing {
     publications {
         create<MavenPublication>("maven") {
             artifact(tasks["jar"])
+            artifact(tasks["sourcesJar"])
+            artifact(tasks["javadocJar"])
 
             pom {
                 name.set(project.properties["plugin_name"] as String)
@@ -137,8 +148,14 @@ publishing {
 
                 groupId = project.properties["maven_group"] as String
                 artifactId = "api-plugin"
-                version = compileVersion()
                 packaging = "jar"
+
+                licenses {
+                    license {
+                        name = "Mozilla Public License, version 2.0"
+                        url = "https://www.mozilla.org/en-US/MPL/2.0/"
+                    }
+                }
 
                 withXml {
                     val dependenciesNode = asNode().appendNode("dependencies")
@@ -156,7 +173,7 @@ publishing {
     }
     repositories {
         maven {
-            name = "alpine-cloud"
+            name = "AlpnCloud"
             url = uri("https://lib.alpn.cloud/alpine-public")
             credentials {
                 username = System.getenv("ALPINE_MAVEN_NAME")
@@ -166,7 +183,7 @@ publishing {
     }
 }
 
-tasks.withType<Javadoc> {
+tasks.javadoc {
     options {
         this as StandardJavadocDocletOptions
         stylesheetFile = File(projectDir, "/dracula-stylesheet.css")
