@@ -62,7 +62,6 @@ tasks.withType<Jar> {
     // Add exclusions
     exclude("META-INF/versions/")
     exclude("META-INF/maven/")
-    exclude("javassist/**/*.html")
 
     // Fill out manifest
     manifest {
@@ -80,6 +79,11 @@ tasks.withType<Jar> {
             "Specification-Version" to project.version,
             "Specification-Vendor" to "Crystal Development, LLC.",
         )
+    }
+
+    // Add license
+    from("LICENSE") {
+        into("META-INF/")
     }
 }
 
