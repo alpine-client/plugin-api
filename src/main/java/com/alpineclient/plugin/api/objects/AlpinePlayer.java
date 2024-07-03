@@ -13,6 +13,7 @@ import com.alpineclient.plugin.network.Packet;
 import com.alpineclient.plugin.network.packet.*;
 import com.alpineclient.plugin.util.object.HandshakeData;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
@@ -136,7 +137,7 @@ public final class AlpinePlayer {
      * Sends a cooldown to this player.
      * <p>
      * If you intend to utilize the Cooldowns module, you must first declare
-     * the capability with {@link AlpineClientApi#registerCapability(Capability)}.
+     * the capability with {@link AlpineClientApi#registerCapabilities(Plugin, Capability...)}.
      *
      * @param cooldown the cooldown to send
      *
