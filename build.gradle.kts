@@ -30,7 +30,7 @@ dependencies {
     compileOnly("org.spigotmc:spigot-api:${project.properties["spigot_version"]}")
 
     depend(this, "org.jetbrains:annotations:24.1.0", true)
-    depend(this, "de.exlll:configlib-spigot:4.2.0")
+    depend(this, "dev.tomwmth:configlib-spigot:4.5.0")
     depend(this, "org.msgpack:msgpack-core:0.9.8")
 
     val liteCommands = "3.4.2"
