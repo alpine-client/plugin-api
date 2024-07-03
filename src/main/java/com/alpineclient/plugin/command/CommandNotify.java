@@ -22,7 +22,7 @@ import org.bukkit.entity.Player;
 public final class CommandNotify extends BaseCommand {
     @Execute
     public void execute(@Context CommandSender sender, @Arg("target") Player player, @Arg("content") String content) {
-        AlpinePlayer alpinePlayer = this.plugin.getPlayerHandler().getConnectedPlayer(player);
+        AlpinePlayer alpinePlayer = this.main.getPlayerHandler().getConnectedPlayer(player);
         if (alpinePlayer != null) {
             Notification notification = Notification.builder().description(content).build();
             alpinePlayer.sendNotification(notification);

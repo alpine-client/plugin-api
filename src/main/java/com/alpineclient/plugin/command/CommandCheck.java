@@ -24,7 +24,7 @@ import org.bukkit.entity.Player;
 public final class CommandCheck extends BaseCommand {
     @Execute
     public void execute(@Context CommandSender sender, @Arg("target") Player player) {
-        AlpinePlayer alpinePlayer = this.plugin.getPlayerHandler().getConnectedPlayer(player);
+        AlpinePlayer alpinePlayer = this.main.getPlayerHandler().getConnectedPlayer(player);
         boolean connected = alpinePlayer != null;
         String text = connected ? " is " : " is not ";
         TextColor color = connected ? AbstractConfig.PRIMARY_COLOR : AbstractConfig.PRIMARY_ERROR_COLOR;

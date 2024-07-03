@@ -1,4 +1,4 @@
-main: com.alpineclient.plugin.Plugin
+main: com.alpineclient.plugin.PluginMain
 name: ${pluginName}
 version: ${pluginVersion}
 api-version: 1.13

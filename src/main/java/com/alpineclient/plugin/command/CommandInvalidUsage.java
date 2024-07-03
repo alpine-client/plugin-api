@@ -1,6 +1,6 @@
 package com.alpineclient.plugin.command;
 
-import com.alpineclient.plugin.Plugin;
+import com.alpineclient.plugin.PluginMain;
 import com.alpineclient.plugin.Reference;
 import com.alpineclient.plugin.config.impl.MessageConfig;
 import dev.rollczi.litecommands.handler.result.ResultHandlerChain;
@@ -17,7 +17,7 @@ import org.bukkit.command.CommandSender;
 public final class CommandInvalidUsage implements InvalidUsageHandler<CommandSender> {
     @Override
     public void handle(Invocation<CommandSender> invocation, InvalidUsage<CommandSender> result, ResultHandlerChain<CommandSender> chain) {
-        MessageConfig config = Plugin.getInstance().getConfigManager().getConfig(MessageConfig.class);
+        MessageConfig config = PluginMain.getInstance().getConfigManager().getConfig(MessageConfig.class);
         CommandSender sender = invocation.sender();
         Schematic command = result.getSchematic();
 

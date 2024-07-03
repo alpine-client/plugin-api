@@ -18,7 +18,7 @@ public final class Reference {
     public static final String ID = "${pluginId}";
     public static final String VERSION = "${pluginVersion}";
     public static final Logger LOGGER = LogManager.getLogger(NAME);
-    public static final BukkitAudiences AUDIENCES = BukkitAudiences.create(Plugin.getInstance());
+    public static final BukkitAudiences AUDIENCES = BukkitAudiences.create(PluginMain.getInstance());
     public static final Gson GSON = new GsonBuilder().disableHtmlEscaping().create();
     public static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
 }

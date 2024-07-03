@@ -19,7 +19,7 @@ public final class PlayListener extends PluginListener {
 
     @Override
     public void onMessage(@NotNull Player player, byte[] message) {
-        if (this.plugin.getPlayerHandler().isPlayerConnected(player.getUniqueId())) {
+        if (this.main.getPlayerHandler().isPlayerConnected(player.getUniqueId())) {
             Packet packet = Packet.fromBytes(message);
             if (packet != null) {
                 packet.process(player);

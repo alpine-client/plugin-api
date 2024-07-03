@@ -32,9 +32,9 @@ import java.util.stream.Collectors;
  * Created on 21/06/2023
  */
 @ApiStatus.Internal
-public final class Plugin extends JavaPlugin {
+public final class PluginMain extends JavaPlugin {
     @Getter
-    private static Plugin instance;
+    private static PluginMain instance;
     {
         instance = this;
     }

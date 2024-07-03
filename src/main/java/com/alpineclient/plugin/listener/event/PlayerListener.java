@@ -2,6 +2,7 @@ package com.alpineclient.plugin.listener.event;
 
 import com.alpineclient.plugin.api.event.ClientHandshakeEvent;
 import com.alpineclient.plugin.api.objects.AlpinePlayer;
+import com.alpineclient.plugin.api.objects.Capability;
 import com.alpineclient.plugin.config.ConfigManager;
 import com.alpineclient.plugin.config.impl.GeneralConfig;
 import com.alpineclient.plugin.framework.EventListener;
@@ -15,6 +16,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.Collection;
 import java.util.UUID;
 
 /**
@@ -32,7 +34,7 @@ public final class PlayerListener extends EventListener {
 
     @EventHandler
     private void onPlayerChangeWorld(PlayerChangedWorldEvent event) {
-        AlpinePlayer player = this.plugin.getPlayerHandler().getConnectedPlayer(event.getPlayer());
+        AlpinePlayer player = this.main.getPlayerHandler().getConnectedPlayer(event.getPlayer());
         if (player != null) {
             this.sendWorldUpdate(player);
         }
@@ -42,10 +44,10 @@ public final class PlayerListener extends EventListener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         UUID id = player.getUniqueId();
-        if (this.plugin.getPlayerHandler().isPlayerConnected(id)) {
-            boolean success = this.plugin.getPlayerHandler().removeConnectedPlayer(id);
+        if (this.main.getPlayerHandler().isPlayerConnected(id)) {
+            boolean success = this.main.getPlayerHandler().removeConnectedPlayer(id);
             if (success) {
-                player.removeMetadata("IsOnAlpineClient", this.plugin);
+                player.removeMetadata("IsOnAlpineClient", this.main);
             }
         }
     }
@@ -57,8 +59,9 @@ public final class PlayerListener extends EventListener {
     }
 
     private void sendCapabilities(AlpinePlayer player) {
-        if (!this.plugin.getCapabilityHandler().getCapabilities().isEmpty()) {
-            PacketCapabilities packet = new PacketCapabilities(this.plugin.getCapabilityHandler().getCapabilities());
+        Collection<Capability> capabilities = this.main.getCapabilityHandler().getCapabilities();
+        if (!capabilities.isEmpty()) {
+            PacketCapabilities packet = new PacketCapabilities(capabilities);
             this.sendPacket(player, packet);
         }
     }
@@ -69,6 +72,6 @@ public final class PlayerListener extends EventListener {
     }
 
     private void sendPacket(AlpinePlayer player, Packet packet) {
-        player.getBukkitPlayer().sendPluginMessage(this.plugin, PlayListener.CHANNEL_ID, packet.toBytes());
+        player.getBukkitPlayer().sendPluginMessage(this.main, PlayListener.CHANNEL_ID, packet.toBytes());
     }
 }

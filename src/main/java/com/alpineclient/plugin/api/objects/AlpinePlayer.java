@@ -1,6 +1,6 @@
 package com.alpineclient.plugin.api.objects;
 
-import com.alpineclient.plugin.Plugin;
+import com.alpineclient.plugin.PluginMain;
 import com.alpineclient.plugin.api.AlpineClientApi;
 import com.alpineclient.plugin.listener.plugin.PlayListener;
 import com.alpineclient.plugin.network.Packet;
@@ -142,6 +142,6 @@ public final class AlpinePlayer {
     }
 
     private void sendPacket(Packet packet) {
-        this.bukkitPlayer.sendPluginMessage(Plugin.getInstance(), PlayListener.CHANNEL_ID, packet.toBytes());
+        this.bukkitPlayer.sendPluginMessage(PluginMain.getInstance(), PlayListener.CHANNEL_ID, packet.toBytes());
     }
 }

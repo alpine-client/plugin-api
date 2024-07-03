@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public final class CommandList extends BaseCommand {
     @Execute
     public void execute(@Context CommandSender sender) {
-        List<String> playerNames = this.plugin.getPlayerHandler().getConnectedPlayers().stream()
+        List<String> playerNames = this.main.getPlayerHandler().getConnectedPlayers().stream()
                 .map(player -> player == null ? null : player.getBukkitPlayer().getName())
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());

@@ -27,10 +27,10 @@ public final class HandshakeListener extends PluginListener {
         if (!json.isEmpty()) {
             try {
                 HandshakeData data = Reference.GSON.fromJson(json, HandshakeData.class);
-                boolean success = this.plugin.getPlayerHandler().addConnectedPlayer(player, data);
+                boolean success = this.main.getPlayerHandler().addConnectedPlayer(player, data);
                 if (success) {
-                    player.setMetadata("IsOnAlpineClient", new FixedMetadataValue(this.plugin, true));
-                    player.sendPluginMessage(this.plugin, this.getChannelId(), MAGIC_NUMBER);
+                    player.setMetadata("IsOnAlpineClient", new FixedMetadataValue(this.main, true));
+                    player.sendPluginMessage(this.main, this.getChannelId(), MAGIC_NUMBER);
                 }
             }
             catch (JsonSyntaxException ex) {

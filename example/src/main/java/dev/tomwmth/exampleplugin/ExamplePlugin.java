@@ -14,7 +14,7 @@ public final class ExamplePlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         // We intend to send cooldown information, tell the client to enable the module
-        AlpineClientApi.registerCapability(Capability.COOLDOWNS);
+        AlpineClientApi.registerCapabilities(this, Capability.COOLDOWNS);
 
         // Register our event listeners
         this.getServer().getPluginManager().registerEvents(new EnderPearlListener(), this);
@@ -25,8 +25,7 @@ public final class ExamplePlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // We no longer intend to send cooldown information, no point in having the client enable the module
-        // DO NOT do this if you have multiple different plugins planning to utilize a given capability
-        AlpineClientApi.unregisterCapability(Capability.COOLDOWNS);
+        // Unregister all of the capabilities that we registered
+        AlpineClientApi.unregisterCapabilities(this);
     }
 }

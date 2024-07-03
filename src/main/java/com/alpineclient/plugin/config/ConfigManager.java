@@ -1,6 +1,6 @@
 package com.alpineclient.plugin.config;
 
-import com.alpineclient.plugin.Plugin;
+import com.alpineclient.plugin.PluginMain;
 import com.alpineclient.plugin.Reference;
 import com.alpineclient.plugin.config.impl.GeneralConfig;
 import com.alpineclient.plugin.config.impl.MessageConfig;
@@ -39,13 +39,13 @@ public final class ConfigManager {
 
     public ConfigManager() {
         instance = this;
-        Plugin plugin = Plugin.getInstance();
+        PluginMain main = PluginMain.getInstance();
 
-        File path = plugin.getDataFolder();
+        File path = main.getDataFolder();
         if (!path.exists() && !path.mkdirs())
             throw new IllegalStateException("Unable to generate configuration directory");
 
-        File dataFolder = plugin.getDataFolder();
+        File dataFolder = main.getDataFolder();
         this.registeredConfigurations.put(GeneralConfig.class, new GeneralConfig(new File(dataFolder, "config.yml").toPath()));
         this.registeredConfigurations.put(MessageConfig.class, new MessageConfig(new File(dataFolder, "messages.yml").toPath()));
 
