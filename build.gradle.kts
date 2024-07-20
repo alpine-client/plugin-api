@@ -201,7 +201,7 @@ fun compileVersion(): String {
     val minor = project.properties["version_minor"]
     val patch = project.properties["version_patch"]
     val preRelease = project.properties["version_pre_release"]
-    return "${major}.${minor}.${patch}${if (preRelease == "none") "" else preRelease}"
+    return "${major}.${minor}.${patch}${if (preRelease == "none") "" else "-${preRelease}"}"
 }
 
 fun depend(scope: DependencyHandlerScope, dependency: String, api: Boolean = false) {
