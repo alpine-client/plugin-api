@@ -6,10 +6,10 @@
 
 package com.alpineclient.plugin.network.packet;
 
-import com.alpineclient.plugin.api.objects.ClientResource;
 import com.alpineclient.plugin.api.objects.Notification;
 import com.alpineclient.plugin.network.Packet;
 import com.alpineclient.plugin.network.WriteOnly;
+import com.alpineclient.plugin.util.MsgPackUtils;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.msgpack.core.MessagePacker;
@@ -32,15 +32,11 @@ public final class PacketNotificationAdd extends Packet {
     @Override
     public void write(@NotNull MessagePacker packer) throws IOException {
         String title = this.notification.getTitle() == null ? "" : this.notification.getTitle();
-
         packer.packString(title);
         packer.packString(this.notification.getDescription());
         packer.packInt(this.notification.getColor());
         packer.packLong(this.notification.getDuration());
-
-        ClientResource texture = this.notification.getTexture();
-        packer.packBoolean(texture.getType() == ClientResource.Type.INTERNAL);
-        packer.packString(texture.getValue());
+        MsgPackUtils.packClientResource(packer, this.notification.getTexture());
     }
 
     @Override

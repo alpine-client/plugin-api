@@ -6,6 +6,7 @@
 
 package com.alpineclient.plugin.util;
 
+import com.alpineclient.plugin.api.objects.ClientResource;
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
@@ -22,14 +23,25 @@ import java.util.UUID;
 @UtilityClass
 @ApiStatus.Internal
 public final class MsgPackUtils {
+    public static void packUuid(@NotNull MessagePacker packer, @NotNull UUID id) throws IOException {
+        packer.packLong(id.getMostSignificantBits());
+        packer.packLong(id.getLeastSignificantBits());
+    }
+
     public static @NotNull UUID unpackUuid(@NotNull MessageUnpacker unpacker) throws IOException {
         long msb = unpacker.unpackLong();
         long lsb = unpacker.unpackLong();
         return new UUID(msb, lsb);
     }
 
-    public static void packUuid(@NotNull MessagePacker packer, @NotNull UUID id) throws IOException {
-        packer.packLong(id.getMostSignificantBits());
-        packer.packLong(id.getLeastSignificantBits());
+    public static void packClientResource(@NotNull MessagePacker packer, @NotNull ClientResource resource) throws IOException {
+        packer.packBoolean(resource.getType() == ClientResource.Type.INTERNAL);
+        packer.packString(resource.getValue());
+    }
+
+    public static @NotNull ClientResource unpackClientResource(@NotNull MessageUnpacker unpacker) throws IOException {
+        boolean internal = unpacker.unpackBoolean();
+        String value = unpacker.unpackString();
+        return internal ? ClientResource.internal(value) : ClientResource.external(value);
     }
 }

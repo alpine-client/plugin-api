@@ -6,7 +6,6 @@
 
 package com.alpineclient.plugin.network.packet;
 
-import com.alpineclient.plugin.api.objects.ClientResource;
 import com.alpineclient.plugin.api.objects.Cooldown;
 import com.alpineclient.plugin.network.Packet;
 import com.alpineclient.plugin.network.WriteOnly;
@@ -36,10 +35,7 @@ public final class PacketCooldownAdd extends Packet {
         packer.packString(this.cooldown.getName());
         packer.packInt(this.cooldown.getColor());
         packer.packLong(this.cooldown.getDuration());
-
-        ClientResource texture = this.cooldown.getTexture();
-        packer.packBoolean(texture.getType() == ClientResource.Type.INTERNAL);
-        packer.packString(texture.getValue());
+        MsgPackUtils.packClientResource(packer, this.cooldown.getTexture());
     }
 
     @Override
