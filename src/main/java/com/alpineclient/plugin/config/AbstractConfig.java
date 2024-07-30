@@ -7,13 +7,10 @@
 package com.alpineclient.plugin.config;
 
 import de.exlll.configlib.Configuration;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import net.kyori.adventure.text.format.TextColor;
-import org.jetbrains.annotations.NotNull;
 
-import java.nio.file.Path;
+import net.kyori.adventure.text.format.TextColor;
+
 
 /**
  * @author BestBearr
@@ -29,11 +26,4 @@ public class AbstractConfig {
     public static final TextColor DIVIDER_COLOR = TextColor.color(0x777777);
     public static final TextColor TEXT_COLOR = TextColor.color(0xdbfce9);
     public static final TextColor ERROR_TEXT_COLOR = TextColor.color(0xfcd5cc);
-
-    @Getter @Setter
-    private transient Path configPath;
-
-    public AbstractConfig(@NotNull Path configPath) {
-        this.configPath = configPath;
-    }
 }
