@@ -10,8 +10,6 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import org.jetbrains.annotations.ApiStatus;
 
-import java.util.List;
-
 /**
  * @author Thomas Wearmouth
  * Created on 21/06/2023
@@ -23,12 +21,9 @@ public final class HandshakeData {
     private final String platform;
     @SerializedName("version")
     private final String version;
-    @SerializedName("mods")
-    private final List<String> mods;
 
-    public HandshakeData(String platform, String version, List<String> mods) {
+    public HandshakeData(String platform, String version) {
         this.platform = platform;
         this.version = version;
-        this.mods = mods;
     }
 }
