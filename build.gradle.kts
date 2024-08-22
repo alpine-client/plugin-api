@@ -5,7 +5,7 @@ plugins {
     id("java-library")
     id("maven-publish")
     id("net.kyori.blossom") version "1.3.1"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("com.gradleup.shadow") version "8.3.0"
 }
 
 group = this.compileGroup()
@@ -38,7 +38,7 @@ dependencies {
     depend(this, "dev.rollczi:litecommands-adventure-platform:${liteCommands}")
 
     val adventure = "4.17.0"
-    depend(this, "net.kyori:adventure-platform-bukkit:4.3.2")
+    depend(this, "net.kyori:adventure-platform-bukkit:4.3.4")
     depend(this, "net.kyori:adventure-api:${adventure}")
     depend(this, "net.kyori:adventure-text-minimessage:${adventure}")
     depend(this, "net.kyori:adventure-text-serializer-legacy:${adventure}")
