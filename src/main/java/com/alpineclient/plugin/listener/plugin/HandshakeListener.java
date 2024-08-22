@@ -40,7 +40,7 @@ public final class HandshakeListener extends PluginListener {
                 }
             }
             catch (JsonSyntaxException ex) {
-                Reference.LOGGER.warn("Invalid handshake payload received from {}", player.getName());
+                Reference.LOGGER.warn("Invalid handshake payload received from {}", player.getName(), ex);
             }
         }
         else {
