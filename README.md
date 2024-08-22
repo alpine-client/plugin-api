@@ -9,7 +9,7 @@ This plugin does the following by default:
 - `/acnotify [player] [content]` - Sends a notification to the given player containing the given content.  Requires the `alpineapi.notify` permission.
 - `/aclist` - Displays a list of all online Alpine Client users. Requires the `alpineapi.list` permission.
 
-The plugin should work on any server running on at least `1.8.8` and Java 8.
+The plugin should work on any server running on at least `1.8.8`, Spigot and Java 8.
 
 Much more is possible with this API, however it would require your development team to implement it with your plugins manually. This is what is available by default with no extra development work.
 
@@ -21,7 +21,6 @@ This plugin exposes an API that can be leveraged to add Alpine Client integratio
 - Accessing certain user data:
   - Minecraft version
   - Mod platform
-  - Loaded mod IDs
 - Sending custom notifications to the client
 - Sending temporary waypoints to the client
 - Sending cooldown information to the client
