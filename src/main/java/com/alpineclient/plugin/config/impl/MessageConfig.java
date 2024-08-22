@@ -14,9 +14,6 @@ import com.alpineclient.plugin.util.Components;
 import lombok.NoArgsConstructor;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
-import org.jetbrains.annotations.NotNull;
-
-import java.nio.file.Path;
 
 /**
  * @author BestBearr
@@ -102,8 +99,4 @@ public final class MessageConfig extends AbstractConfig {
             Component.text("  * ").color(DIVIDER_COLOR),
             Component.text("%syntax%").color(SECONDARY_ERROR_COLOR)
     );
-
-    public MessageConfig(@NotNull Path configPath) {
-        super(configPath);
-    }
 }

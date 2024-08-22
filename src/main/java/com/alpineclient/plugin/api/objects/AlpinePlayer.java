@@ -32,19 +32,17 @@ public final class AlpinePlayer {
     private final Player bukkitPlayer;
     private final String platform;
     private final String version;
-    private final List<String> mods;
 
     @ApiStatus.Internal
     public AlpinePlayer(@NotNull Player bukkitPlayer, @NotNull HandshakeData data) {
-        this(bukkitPlayer, data.getPlatform(), data.getVersion(), data.getMods());
+        this(bukkitPlayer, data.getPlatform(), data.getVersion());
     }
 
     @ApiStatus.Internal
-    public AlpinePlayer(@NotNull Player bukkitPlayer, @NotNull String platform, @NotNull String version, @NotNull List<String> mods) {
+    public AlpinePlayer(@NotNull Player bukkitPlayer, @NotNull String platform, @NotNull String version) {
         this.bukkitPlayer = bukkitPlayer;
         this.platform = platform;
         this.version = version;
-        this.mods = mods;
     }
 
     /**
@@ -84,16 +82,19 @@ public final class AlpinePlayer {
      * e.g. {@code ["sodium", "lithium", "alpineclient"]}
      *
      * @return a list containing mod IDs
+     * @deprecated functionality removed; no replacement
      */
+    @Deprecated
+    @ApiStatus.ScheduledForRemoval(inVersion = "1.4.0")
     public @NotNull List<String> getMods() {
-        return Collections.unmodifiableList(this.mods);
+        return Collections.emptyList();
     }
 
     /**
      * Get the full client brand consisting of their version
      * and platform.
      * <p>
-     * e.g. {@code 1.20-fabric}
+     * e.g. {@code 1.18.2-fabric}
      *
      * @return the client brand
      */

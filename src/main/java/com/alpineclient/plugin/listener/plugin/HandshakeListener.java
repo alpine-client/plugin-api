@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public final class HandshakeListener extends PluginListener {
     public static final String CHANNEL_ID = "ac:handshake";
 
-    private static final byte[] MAGIC_NUMBER = new byte[] { 0x3A, 0x3D };
+    private static final byte[] MAGIC_BYTES = new byte[] { 0x41, 0x4C, 0x50, 0x4E };
 
     public HandshakeListener() {
         super(CHANNEL_ID);
@@ -36,11 +36,11 @@ public final class HandshakeListener extends PluginListener {
                 boolean success = this.main.getPlayerHandler().addConnectedPlayer(player, data);
                 if (success) {
                     player.setMetadata("IsOnAlpineClient", new FixedMetadataValue(this.main, true));
-                    player.sendPluginMessage(this.main, this.getChannelId(), MAGIC_NUMBER);
+                    player.sendPluginMessage(this.main, this.getChannelId(), MAGIC_BYTES);
                 }
             }
             catch (JsonSyntaxException ex) {
-                Reference.LOGGER.warn("Invalid handshake payload received from {}", player.getName());
+                Reference.LOGGER.warn("Invalid handshake payload received from {}", player.getName(), ex);
             }
         }
         else {

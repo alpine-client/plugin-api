@@ -10,9 +10,7 @@ import com.alpineclient.plugin.config.AbstractConfig;
 import com.google.common.collect.ImmutableMap;
 import de.exlll.configlib.Comment;
 import lombok.NoArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 
-import java.nio.file.Path;
 import java.util.Map;
 
 /**
@@ -34,8 +32,4 @@ public final class GeneralConfig extends AbstractConfig {
             "    A list of all module IDs can be found in the GitHub repository under \"MODULES.md\"."
     })
     public Map<String, Boolean> modules = ImmutableMap.of("cannon_view", false);
-
-    public GeneralConfig(@NotNull Path configPath) {
-        super(configPath);
-    }
 }

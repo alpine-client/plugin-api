@@ -9,12 +9,14 @@ package com.alpineclient.plugin.util;
 import com.alpineclient.plugin.Reference;
 import lombok.experimental.UtilityClass;
 import net.kyori.adventure.text.Component;
+import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.text.DecimalFormat;
+import java.util.Map;
 
 /**
  * @author BestBearr
@@ -23,7 +25,41 @@ import java.text.DecimalFormat;
 @UtilityClass
 @ApiStatus.Internal
 public final class Formatting {
+    private static final Map<ChatColor, Integer> COLOR_HEX_CODES = CollectionUtils.map(
+            ChatColor.DARK_RED, 0xFFAA0000,
+            ChatColor.RED, 0xFFFF5555,
+            ChatColor.GOLD, 0xFFFFAA00,
+            ChatColor.YELLOW, 0xFFFFFF55,
+            ChatColor.DARK_GREEN, 0xFF00AA00,
+            ChatColor.GREEN, 0xFF55FF55,
+            ChatColor.DARK_AQUA, 0xFF00AAAA,
+            ChatColor.AQUA, 0xFF55FFFF,
+            ChatColor.DARK_BLUE, 0xFF0000AA,
+            ChatColor.BLUE, 0xFF5555FF,
+            ChatColor.DARK_PURPLE, 0xFFAA00AA,
+            ChatColor.LIGHT_PURPLE, 0xFFFF55FF,
+            ChatColor.BLACK, 0xFF000000,
+            ChatColor.DARK_GRAY, 0xFF555555,
+            ChatColor.GRAY, 0xFFAAAAAA,
+            ChatColor.WHITE, 0xFFFFFFFF
+    );
+
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
+
+    /**
+     * Retrieve the hex code for a chat formatting code.
+     * <br>
+     * Returns {@code -1} for non-color codes.
+     *
+     * @param color The Bukkit {@link ChatColor}
+     * @return The corresponding hex code.
+     */
+    public static int getHexColor(@NotNull ChatColor color) {
+        if (color.isColor()) {
+            return COLOR_HEX_CODES.get(color);
+        }
+        else return -1;
+    }
 
     /**
      * Formats a material name to a more readable format.
