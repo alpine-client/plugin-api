@@ -27,7 +27,7 @@ This plugin exposes an API that can be leveraged to add Alpine Client integratio
 
 The plugin can be added as a dependency to your Gradle buildscript like so:
 
-```kotlin
+```gradle
 repositories {
     maven("https://lib.alpn.cloud/alpine-public/")
 }
